@@ -8,14 +8,13 @@
 
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Kotlin](https://img.shields.io/badge/Kotlin-2.0.21-blue.svg)](https://kotlinlang.org/)
-[![Compose Desktop](https://img.shields.io/badge/Compose-Desktop-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
 
 </div>
 
 ## 📋 Quick Overview
 
-Tidefish is a comprehensive Android Debug Bridge (ADB) GUI client built with Kotlin and Compose Desktop. It provides developers and power users with an intuitive interface to manage, debug, and interact with Android devices through a desktop application.
+Tidefish is a comprehensive Android Debug Bridge (ADB) GUI client built with Kotlin. It provides developers and power users with an intuitive interface to manage, debug, and interact with Android devices through a desktop application.
 
 ### 🎯 Key Benefits
 - **Device Management**: Connect and manage multiple Android devices simultaneously
@@ -127,17 +126,16 @@ The application is organized into several main screens:
 
 ### Technology Stack
 
-- **Framework**: Kotlin with Compose Desktop
+- **Framework**: Kotlin
 - **Architecture**: MVC pattern with separate controllers, models, and views
 - **ADB Integration**: Direct ADB command execution with result parsing
-- **UI Framework**: FlatLaf for modern look and feel
 - **Data Processing**: Kotlinx Coroutines for asynchronous operations
 
 ### Key Components
 
 - **ADB Helper**: Core ADB command execution and device communication
 - **Screen Controllers**: Manage individual screen logic and data
-- **UI Components**: Reusable Compose UI components
+- **UI Components**: Reusable UI components
 - **Data Models**: Structured data representation for device information
 
 </details>
