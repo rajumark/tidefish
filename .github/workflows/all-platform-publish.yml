@@ -61,22 +61,8 @@ jobs:
         if: runner.os == 'Windows'
         run: git update-index --chmod=+x gradlew.bat
 
-      - name: Set up OpenSSL (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          choco install openssl
 
-      - name: Convert PEM key to PFX format (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          openssl pkcs12 -export -out codesign.pfx -inkey sign/codesign.key -in sign/codesign.crt -password pass:yourpassword
-        env:
-          OPENSSL_CONF: C:\Program Files\OpenSSL-Win64\bin\openssl.cfg
 
-      - name: Install Windows SDK (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          choco install windows-sdk-10.0 -y --params "/Features=OptionId.WindowsDesktopDebuggers"
 
       - name: Build with Gradle
         run: |
@@ -104,13 +90,6 @@ jobs:
           echo "Current version: $version"
         shell: bash
 
-      - name: Sign MSI (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          $signtoolPath = "${env:ProgramFiles(x86)}\Windows Kits\10\bin\*\x64\signtool.exe" | Resolve-Path | Select-Object -First 1
-          $msi_file_path = "${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
-          & $signtoolPath sign /f "codesign.pfx" /p "yourpassword" /fd sha256 /tr "http://timestamp.digicert.com" /td SHA256 $msi_file_path
-        shell: pwsh
 
       - name: Create ZIP for Windows
         if: runner.os == 'Windows'

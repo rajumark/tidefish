@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Tidefish Logo](docs/logo.png)
+![Tidefish Logo](desktop-icons/icon-linux.png)
 
 **A powerful desktop application for Android device management and debugging**
 
