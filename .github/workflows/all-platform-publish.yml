@@ -9,8 +9,23 @@ permissions:
   contents: write
 
 jobs:
+  generate-version:
+    if: contains(github.event.head_commit.message, '#go')
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+    steps:
+      - name: Generate version
+        id: version
+        run: |
+          version="1.0.$(date +%s)"
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "Current version: $version"
+        shell: bash
+
   build-and-publish:
     if: contains(github.event.head_commit.message, '#go')
+    needs: generate-version
     strategy:
       fail-fast: false
       matrix:
@@ -61,8 +76,6 @@ jobs:
         if: runner.os == 'Windows'
         run: git update-index --chmod=+x gradlew.bat
 
-
-
       - name: Build with Gradle
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
@@ -81,21 +94,13 @@ jobs:
           fi
         shell: bash
 
-      - name: Generate version
-        id: version
-        run: |
-          version="1.0.$(date +%s)"
-          echo "version=$version" >> $GITHUB_OUTPUT
-          echo "Current version: $version"
-        shell: bash
-
 
       - name: Create ZIP for Windows
         if: runner.os == 'Windows'
         run: |
           $artifact_dir = "${{ github.workspace }}\${{ matrix.artifact_path }}"
-          $msi_file_path = "$artifact_dir\${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
-          $zip_file_path = "$artifact_dir\${{ matrix.package_name }}-${{ steps.version.outputs.version }}.zip"
+          $msi_file_path = "$artifact_dir\${{ matrix.package_name }}-${{ needs.generate-version.outputs.version }}.${{ matrix.artifact_extension }}"
+          $zip_file_path = "$artifact_dir\${{ matrix.package_name }}-${{ needs.generate-version.outputs.version }}.zip"
           
           Write-Host "Looking for MSI file at: $msi_file_path"
           if (Test-Path $msi_file_path) {
@@ -120,7 +125,7 @@ jobs:
         id: artifact
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
-            artifact_path="${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.zip"
+            artifact_path="${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ needs.generate-version.outputs.version }}.zip"
           else
             # dynamically detect the file
             case "${{ matrix.artifact_extension }}" in
@@ -131,7 +136,7 @@ jobs:
                 artifact_path=$(find "${{ github.workspace }}/${{ matrix.artifact_path }}" -type f -name "*.dmg" | head -n 1)
                 ;;
               *)
-                artifact_path="${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
+                artifact_path="${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ needs.generate-version.outputs.version }}.${{ matrix.artifact_extension }}"
                 ;;
             esac
           fi
@@ -150,37 +155,106 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.name }}-${{ steps.version.outputs.version }}
+          name: ${{ matrix.name }}-${{ needs.generate-version.outputs.version }}
           path: ${{ steps.artifact.outputs.artifact_path }}
 
   create-release:
-    needs: build-and-publish
+    needs: [generate-version, build-and-publish]
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, '#go')
     steps:
-      - name: Generate version
-        id: version
-        run: |
-          version="1.0.$(date +%s)"
-          echo "version=$version" >> $GITHUB_OUTPUT
-          echo "Current version: $version"
-        shell: bash
-
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
-          pattern: "*-${{ steps.version.outputs.version }}"
+          pattern: "*-${{ needs.generate-version.outputs.version }}"
           merge-multiple: true
+
+      - name: List downloaded artifacts
+        run: |
+          echo "=== Downloaded artifacts ==="
+          find . -type f -name "*-${{ needs.generate-version.outputs.version }}*" | sort
+          echo "=== All files in workspace ==="
+          find . -type f | sort
+
+      - name: Validate required artifacts
+        run: |
+          version="${{ needs.generate-version.outputs.version }}"
+          echo "Checking for version: $version"
+          
+          # Define expected artifacts
+          declare -A expected_artifacts=(
+            ["linux"]="linux-$version"
+            ["macos-arm64"]="macos-arm64-$version" 
+            ["macos-x64"]="macos-x64-$version"
+            ["windows"]="windows-$version"
+          )
+          
+          missing_artifacts=()
+          found_artifacts=()
+          
+          # Check each expected artifact
+          for platform in "${!expected_artifacts[@]}"; do
+            pattern="${expected_artifacts[$platform]}"
+            echo "Checking for $platform artifact: $pattern"
+            
+            if find . -name "${pattern}*" -type f | grep -q .; then
+              found_files=$(find . -name "${pattern}*" -type f)
+              echo "✅ FOUND $platform: $found_files"
+              found_artifacts+=("$platform")
+            else
+              echo "❌ MISSING $platform artifact: $pattern"
+              missing_artifacts+=("$platform")
+            fi
+          done
+          
+          echo ""
+          echo "=== SUMMARY ==="
+          echo "✅ Found artifacts: ${#found_artifacts[@]}/4"
+          for platform in "${found_artifacts[@]}"; do
+            echo "  - $platform"
+          done
+          
+          if [ ${#missing_artifacts[@]} -gt 0 ]; then
+            echo "❌ Missing artifacts: ${#missing_artifacts[@]}/4"
+            for platform in "${missing_artifacts[@]}"; do
+              echo "  - $platform"
+            done
+            echo ""
+            echo "Debugging - all files with version in name:"
+            find . -name "*$version*" -type f -exec ls -la {} \;
+            exit 1
+          else
+            echo "🎉 All 4 platform artifacts found!"
+          fi
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ steps.version.outputs.version }}
-          name: Tidefish v${{ steps.version.outputs.version }}
+          tag_name: v${{ needs.generate-version.outputs.version }}
+          name: Tidefish v${{ needs.generate-version.outputs.version }}
           draft: false
           prerelease: false
           files: |
             *-*
             **/*
+
+      - name: Verify Release
+        run: |
+          echo "=== Release Verification ==="
+          echo "Release created for version: ${{ needs.generate-version.outputs.version }}"
+          echo "Tag: v${{ needs.generate-version.outputs.version }}"
+          
+          # Count files that should be in release
+          file_count=$(find . -type f -name "*-${{ needs.generate-version.outputs.version }}*" | wc -l)
+          echo "Files prepared for release: $file_count"
+          
+          if [ "$file_count" -eq 4 ]; then
+            echo "✅ All 4 platform artifacts ready for release"
+          else
+            echo "⚠️ Expected 4 artifacts, found $file_count"
+          fi
+          
+          echo "Files being released:"
+          find . -type f -name "*-${{ needs.generate-version.outputs.version }}*" -exec basename {} \;
