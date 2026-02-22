@@ -110,7 +110,7 @@ jobs:
         run: |
           $signtoolPath = (Get-Command signtool.exe).Source
           $msi_file_path = "${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
-          $signtoolPath sign /f "codesign.pfx" /p "yourpassword" /tr "http://timestamp.digicert.com" /td SHA256 $msi_file_path
+          & $signtoolPath sign /f "codesign.pfx" /p "yourpassword" /tr "http://timestamp.digicert.com" /td SHA256 $msi_file_path
         shell: pwsh
 
       - name: Create ZIP for Windows

@@ -8,7 +8,21 @@ plugins {
 }
 
 group = "com.tidefish.app"
-version = "1.0-SNAPSHOT"
+version = "1.0.${getCommitCount()}"
+
+fun getCommitCount(): String {
+    return "git rev-list --count HEAD".runCommand()
+}
+
+fun String.runCommand(): String {
+    return ProcessBuilder(split(" "))
+        .redirectOutput(ProcessBuilder.Redirect.PIPE)
+        .start()
+        .inputStream
+        .bufferedReader()
+        .readText()
+        .trim()
+}
 
 repositories {
     mavenCentral()
@@ -57,7 +71,7 @@ compose.desktop {
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
             packageName = "Tidefish"
-            packageVersion = "1.0.21" //versionLogs #go commit
+            packageVersion = version.toString()
             //Gumroad: https://gumroad.com/products
             //Logs https://docs.google.com/spreadsheets/d/1lHfe-dSo6jFYZkQkVT5yILXG-sRkuFs9k2J78F8Ov7M/edit?resourcekey=&gid=954940293#gid=954940293
 
