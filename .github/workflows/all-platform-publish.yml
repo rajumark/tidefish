@@ -1,0 +1,162 @@
+name: All Platform Publish
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-publish:
+    if: contains(github.event.head_commit.message, '#go')
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            name: linux
+            artifact_path: build/compose/binaries/main/deb
+            artifact_extension: deb
+            package_name: Tidefish
+          - os: macos-latest
+            name: macos-arm64
+            artifact_path: build/compose/binaries/main/dmg
+            artifact_extension: dmg
+            package_name: Tidefish
+          - os: macos-13
+            name: macos-x64
+            artifact_path: build/compose/binaries/main/dmg
+            artifact_extension: dmg
+            package_name: Tidefish
+          - os: windows-latest
+            name: windows
+            artifact_path: build/compose/binaries/main/msi
+            artifact_extension: msi
+            package_name: Tidefish
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "rajumark"
+          git config --global user.email "raju348636@gmail.com"
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Grant execute permission for gradlew
+        if: runner.os != 'Windows'
+        run: chmod +x gradlew
+
+      - name: Grant execute permission for gradlew.bat
+        if: runner.os == 'Windows'
+        run: git update-index --chmod=+x gradlew.bat
+
+      - name: Set up OpenSSL (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          choco install openssl
+
+      - name: Convert PEM key to PFX format (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          openssl pkcs12 -export -out codesign.pfx -inkey sign/codesign.key -in sign/codesign.crt -password pass:yourpassword
+        env:
+          OPENSSL_CONF: C:\Program Files\OpenSSL-Win64\bin\openssl.cfg
+
+      - name: Install Windows SDK (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          choco install windows-sdk-10.0 -y
+
+      - name: Build with Gradle
+        run: |
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            ./gradlew.bat build
+          else
+            ./gradlew build
+          fi
+        shell: bash
+
+      - name: Package for current OS
+        run: |
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            ./gradlew.bat :packageDistributionForCurrentOS
+          else
+            ./gradlew :packageDistributionForCurrentOS
+          fi
+        shell: bash
+
+      - name: Extract version
+        id: version
+        run: |
+          file_path="./build.gradle.kts"
+          version=$(grep -oE 'packageVersion = "[0-9]+\.[0-9]+\.[0-9]+"' $file_path | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "Current version: $version"
+
+      - name: Sign MSI (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          $signtoolPath = (Get-Command signtool.exe).Source
+          $msi_file_path = "${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
+          $signtoolPath sign /f "codesign.pfx" /p "yourpassword" /tr "http://timestamp.digicert.com" /td SHA256 $msi_file_path
+        shell: pwsh
+
+      - name: Create ZIP for Windows
+        if: runner.os == 'Windows'
+        run: |
+          $msi_file_path = "${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
+          $zip_file_path = "${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.zip"
+          Compress-Archive -Path $msi_file_path -DestinationPath $zip_file_path
+        shell: pwsh
+
+      - name: Find artifact
+        id: artifact
+        run: |
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            artifact_path="${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.zip"
+          else
+            artifact_path="${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
+          fi
+          
+          if [ -f "$artifact_path" ]; then
+            echo "artifact_path=$artifact_path" >> $GITHUB_OUTPUT
+            echo "Found artifact: $artifact_path"
+          else
+            echo "Artifact not found at: $artifact_path"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.name }}-${{ steps.version.outputs.version }}
+          path: ${{ steps.artifact.outputs.artifact_path }}
+
+      - name: Create Release
+        id: release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          release_name: Tidefish v${{ steps.version.outputs.version }}
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.release.outputs.upload_url }}
+          asset_path: ${{ steps.artifact.outputs.artifact_path }}
+          asset_name: ${{ matrix.package_name }}-${{ steps.version.outputs.version }}-${{ matrix.name }}.${{ runner.os == 'Windows' && 'zip' || matrix.artifact_extension }}
+          asset_content_type: application/octet-stream
