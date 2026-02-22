@@ -63,7 +63,6 @@ jobs:
 
 
 
-
       - name: Build with Gradle
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
@@ -183,4 +182,5 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            *
+            *-*
+            **/*
