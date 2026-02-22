@@ -1,0 +1,42 @@
+{
+  "screenId": "apps",
+  "title": "Apps",
+  "description": "Applications management screen for viewing and managing installed Android applications",
+  "category": "device_management",
+  "features": [
+    {
+      "id": "list_installed_apps",
+      "name": "List Installed Applications",
+      "description": "Display all installed applications on the connected Android device",
+      "type": "display",
+      "developer_perspective": "Essential for debugging app-related issues and understanding device state"
+    },
+    {
+      "id": "app_info_details",
+      "name": "Application Information",
+      "description": "Show detailed information about each application including package name, version, permissions",
+      "type": "display",
+      "developer_perspective": "Critical for development debugging and compatibility testing"
+    },
+    {
+      "id": "app_management_actions",
+      "name": "App Management Actions",
+      "description": "Perform actions like uninstall, clear data, force stop on applications",
+      "type": "action",
+      "developer_perspective": "Useful for testing app behavior and cleanup during development"
+    }
+  ],
+  "technical_details": {
+    "controller": "PackagesListController",
+    "model": "PackagesListModel",
+    "view": "PackagesListView2",
+    "adb_commands": ["pm list packages", "dumpsys package"],
+    "data_source": "Android Package Manager"
+  },
+  "user_interactions": [
+    "Click to select app",
+    "Right-click for context menu",
+    "Search/filter apps",
+    "Refresh app list"
+  ]
+}
