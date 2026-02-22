@@ -1,0 +1,49 @@
+{
+  "screenId": "messages",
+  "title": "Messages",
+  "description": "SMS/MMS management screen for viewing and analyzing text message communications",
+  "category": "communication",
+  "features": [
+    {
+      "id": "message_list_display",
+      "name": "Message List Display",
+      "description": "Show all SMS and MMS messages with sender, timestamp, and content preview",
+      "type": "display",
+      "developer_perspective": "Critical for testing messaging apps and communication features"
+    },
+    {
+      "id": "message_content_view",
+      "name": "Message Content Viewer",
+      "description": "Display full message content including attachments for MMS",
+      "type": "display",
+      "developer_perspective": "Essential for debugging message formatting and attachment handling"
+    },
+    {
+      "id": "conversation_thread",
+      "name": "Conversation Thread View",
+      "description": "Group messages by conversation for easier analysis",
+      "type": "display",
+      "developer_perspective": "Useful for testing messaging flow and conversation management"
+    },
+    {
+      "id": "message_search_filter",
+      "name": "Message Search and Filter",
+      "description": "Search messages by content, sender, or date range",
+      "type": "interaction",
+      "developer_perspective": "Helpful for finding specific test messages and debugging"
+    }
+  ],
+  "technical_details": {
+    "controller": "JMessagesController",
+    "model": "JMessagesModel",
+    "view": "JMessagesView",
+    "adb_commands": ["content query --uri content://sms"],
+    "data_source": "Android SMS Provider"
+  },
+  "user_interactions": [
+    "Browse message list",
+    "View conversation threads",
+    "Search messages",
+    "Export message data"
+  ]
+}

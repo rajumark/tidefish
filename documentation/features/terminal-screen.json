@@ -1,0 +1,56 @@
+{
+  "screenId": "adbterminal",
+  "title": "ADB Terminal",
+  "description": "ADB Terminal screen for executing ADB commands directly from the application",
+  "category": "development_tools",
+  "features": [
+    {
+      "id": "command_execution",
+      "name": "ADB Command Execution",
+      "description": "Execute ADB commands directly from the GUI interface",
+      "type": "action",
+      "developer_perspective": "Essential for advanced debugging and system-level operations"
+    },
+    {
+      "id": "command_history",
+      "name": "Command History",
+      "description": "Maintain history of executed commands for quick access",
+      "type": "utility",
+      "developer_perspective": "Useful for repeating common debugging commands"
+    },
+    {
+      "id": "output_display",
+      "name": "Command Output Display",
+      "description": "Display command output in a formatted, readable manner",
+      "type": "display",
+      "developer_perspective": "Critical for analyzing command results and debugging"
+    },
+    {
+      "id": "saved_commands",
+      "name": "Saved Commands",
+      "description": "Save frequently used commands for quick execution",
+      "type": "utility",
+      "developer_perspective": "Helpful for streamlining common development workflows"
+    },
+    {
+      "id": "command_suggestions",
+      "name": "Command Auto-completion",
+      "description": "Provide auto-completion suggestions for ADB commands",
+      "type": "interaction",
+      "developer_perspective": "Improves productivity and reduces command errors"
+    }
+  ],
+  "technical_details": {
+    "controller": "ADBTerminalController",
+    "model": "ADBTerminalModel",
+    "view": "ADBTerminalView",
+    "adb_commands": ["All ADB commands supported"],
+    "data_source": "ADB Command Line Interface"
+  },
+  "user_interactions": [
+    "Type ADB commands",
+    "Execute commands",
+    "View output",
+    "Save favorite commands"
+  ]
+}

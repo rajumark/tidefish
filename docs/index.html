@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tidefish</title>
+    <title>Tidefish - Android Development Tool</title>
+    <meta name="description" content="Tidefish is a comprehensive Android development tool built by developers, for developers. Streamline your debugging workflow with device management, ADB integration, and real-time monitoring.">
+    <meta name="keywords" content="Android development tool, ADB integration, device management, Android debugging, app testing, Android developer tools, Tidefish">
     <style>
         * {
             margin: 0;
@@ -116,36 +118,75 @@
             border-radius: var(--border-radius-sm);
         }
 
-        .download-nav {
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .nav-link {
             font-family: var(--sf-pro-text);
             font-size: var(--font-size-caption);
             font-weight: 400;
-            color: var(--color-button);
+            color: var(--color-secondary);
             text-decoration: none;
             padding: var(--spacing-xs) var(--spacing-sm);
             border-radius: var(--border-radius-sm);
             transition: var(--transition-smooth);
         }
 
-        .download-nav:hover {
+        .nav-link:hover {
+            color: var(--color-button);
             background-color: rgba(0, 113, 227, 0.1);
+        }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
         }
 
         /* Hero Section */
         .hero {
-            min-height: 100vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: var(--spacing-3xl) var(--spacing-md);
+            padding: var(--spacing-3xl) var(--spacing-md) var(--spacing-2xl);
             position: relative;
         }
 
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-cta {
+            margin-top: var(--spacing-xl);
+        }
+
+        .cta-button-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-family: var(--sf-pro-text);
+            font-size: var(--font-size-body);
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(135deg, var(--color-button), var(--color-accent));
+            text-decoration: none;
+            padding: var(--spacing-md) var(--spacing-xl);
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition-smooth);
+            box-shadow: 0 4px 20px rgba(0, 113, 227, 0.3);
+        }
+
+        .cta-button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 113, 227, 0.4);
+            background: linear-gradient(135deg, var(--color-button-hover), var(--color-accent));
         }
 
         .hero-title {
@@ -217,53 +258,180 @@
             background-color: var(--color-tertiary);
         }
 
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-xl);
-            margin-top: var(--spacing-2xl);
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: var(--spacing-lg);
+        .comprehensive-features {
+            padding: var(--spacing-3xl) 0;
             background-color: var(--color-background);
-            border-radius: var(--border-radius-lg);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            transition: var(--transition-smooth);
         }
 
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
         }
 
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, #0071e3, #5856d6);
-            border-radius: var(--border-radius-md);
-            margin: 0 auto var(--spacing-md);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-        }
-
-        .feature-title {
+        .section-title {
             font-family: var(--sf-pro-display);
-            font-size: 19px;
+            font-size: var(--font-size-title);
+            font-weight: 600;
+            letter-spacing: -0.022em;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-primary);
+        }
+
+        .section-subtitle {
+            font-size: var(--font-size-body);
+            color: var(--color-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .category-section {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .category-title {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-subtitle);
             font-weight: 600;
             letter-spacing: -0.016em;
             margin-bottom: var(--spacing-sm);
             color: var(--color-primary);
         }
 
+        .category-description {
+            font-size: var(--font-size-body);
+            color: var(--color-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .feature-card {
+            background-color: var(--color-background);
+            border: 1px solid var(--color-tertiary);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .comprehensive-features .feature-card {
+            background-color: var(--color-background);
+            border: 1px solid var(--color-tertiary);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-button), var(--color-accent));
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-button);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-button), var(--color-accent));
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-title {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-subtitle);
+            font-weight: 600;
+            letter-spacing: -0.016em;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-primary);
+        }
+
+        .comprehensive-features .feature-title {
+            font-size: var(--font-size-body);
+        }
+
         .feature-description {
             font-size: var(--font-size-body);
             color: var(--color-secondary);
             line-height: 1.5;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+
+        .feature-tag {
+            padding: 4px var(--spacing-sm);
+            font-size: var(--font-size-small);
+            font-weight: 500;
+            color: var(--color-button);
+            background-color: rgba(0, 113, 227, 0.1);
+            border-radius: var(--border-radius-sm);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--color-tertiary), #e8e8ed);
+            padding: var(--spacing-2xl) 0;
+            border-radius: var(--border-radius-lg);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: var(--spacing-md);
+        }
+
+        .stat-number {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-title);
+            font-weight: 700;
+            color: var(--color-button);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-label {
+            font-size: var(--font-size-body);
+            color: var(--color-secondary);
+            font-weight: 500;
         }
 
         /* Footer */
@@ -364,21 +532,27 @@
                 </div>
                 <span>Tidefish</span>
             </a>
-            <a href="https://github.com/rajumark/tidefish/releases" class="download-nav" target="_blank" rel="noopener noreferrer">
-                Download
-            </a>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="https://github.com/rajumark/tidefish/releases" class="nav-link" target="_blank">Download</a>
+            </div>
         </div>
     </nav>
 
     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title">Tidefish</h1>
-            <p class="hero-subtitle">The Android development tool you've been waiting for</p>
-            <p class="tagline">By an Android Dev. For Android Devs.</p>
+            <p class="hero-subtitle">A comprehensive Android development tool built by developers, for developers</p>
+            <p class="tagline">Streamline your debugging workflow with device management and ADB integration</p>
+            <div class="hero-cta">
+                <a href="https://github.com/rajumark/tidefish/releases" class="cta-button-primary" target="_blank">
+                    <span>Download</span>
+                </a>
+            </div>
         </div>
     </section>
 
-    <section class="features">
+    <section class="features" id="features">
         <div class="container">
             <div class="features-grid">
                 <div class="feature-card">
@@ -400,10 +574,119 @@
         </div>
     </section>
 
+    <section class="comprehensive-features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Features</h2>
+                <p class="section-subtitle">Everything you need for Android development in one tool</p>
+            </div>
+
+            <!-- Device Management Category -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h3 class="category-title">Device Management</h3>
+                    <p class="category-description">Manage your Android devices and applications efficiently</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">�</div>
+                        <h4 class="feature-title">Apps Management</h4>
+                        <p class="feature-description">Install, uninstall, and manage applications with detailed package information.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚙️</div>
+                        <h4 class="feature-title">Device Settings</h4>
+                        <p class="feature-description">Access and modify device settings including developer options.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h4 class="feature-title">Device Properties</h4>
+                        <p class="feature-description">View comprehensive device information including hardware and system properties.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Development Tools Category -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h3 class="category-title">Development Tools</h3>
+                    <p class="category-description">Advanced debugging and development utilities</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🔄</div>
+                        <h4 class="feature-title">Lifecycle Monitor</h4>
+                        <p class="feature-description">Monitor application lifecycle events and activity state changes.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💻</div>
+                        <h4 class="feature-title">ADB Terminal</h4>
+                        <p class="feature-description">Direct ADB command execution with history and auto-completion.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">�</div>
+                        <h4 class="feature-title">App Inspector</h4>
+                        <p class="feature-description">Inspect running applications with performance and resource usage.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Communication Category -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h3 class="category-title">Communication</h3>
+                    <p class="category-description">Access and manage communication data</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">�</div>
+                        <h4 class="feature-title">Call Logs</h4>
+                        <p class="feature-description">Access and analyze call history with detailed information.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h4 class="feature-title">Messages</h4>
+                        <p class="feature-description">Manage SMS and MMS messages with conversation threads.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">👥</div>
+                        <h4 class="feature-title">Contacts</h4>
+                        <p class="feature-description">View and manage contact information with search capabilities.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- System Management Category -->
+            <div class="category-section">
+                <div class="category-header">
+                    <h3 class="category-title">System Management</h3>
+                    <p class="category-description">Monitor and control system-level operations</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h4 class="feature-title">Services Monitor</h4>
+                        <p class="feature-description">Monitor system services with real-time status information.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔔</div>
+                        <h4 class="feature-title">Notifications</h4>
+                        <p class="feature-description">View and manage system and application notifications.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎵</div>
+                        <h4 class="feature-title">Media Management</h4>
+                        <p class="feature-description">Browse and manage media files on your device.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2024 Tidefish. Crafted with precision for Android developers.</p>
+                <p>&copy; 2024 Tidefish. Built by Android developers, for Android developers.</p>
             </div>
         </div>
     </footer>

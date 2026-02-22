@@ -1,0 +1,49 @@
+{
+  "screenId": "notifications",
+  "title": "Notifications",
+  "description": "Notifications management screen for viewing and analyzing system and app notifications",
+  "category": "system_management",
+  "features": [
+    {
+      "id": "notification_list",
+      "name": "Active Notifications Display",
+      "description": "Show all currently active notifications from system and apps",
+      "type": "display",
+      "developer_perspective": "Essential for testing notification behavior and debugging"
+    },
+    {
+      "id": "notification_details",
+      "name": "Notification Information",
+      "description": "Display detailed notification content including actions, priority, timestamp",
+      "type": "display",
+      "developer_perspective": "Critical for understanding notification structure and behavior"
+    },
+    {
+      "id": "notification_history",
+      "name": "Notification History",
+      "description": "View historical notifications that have been dismissed",
+      "type": "display",
+      "developer_perspective": "Useful for debugging notification flow and timing issues"
+    },
+    {
+      "id": "notification_control",
+      "name": "Notification Management",
+      "description": "Dismiss or interact with notifications from the tool",
+      "type": "action",
+      "developer_perspective": "Helpful for testing notification interactions and cleanup"
+    }
+  ],
+  "technical_details": {
+    "controller": "NotificationsController",
+    "model": "NotificationsModel",
+    "view": "NotificationsView",
+    "adb_commands": ["shell dumpsys notification", "shell cmd notification list"],
+    "data_source": "Android Notification Manager"
+  },
+  "user_interactions": [
+    "View active notifications",
+    "Check notification details",
+    "Dismiss notifications",
+    "Export notification data"
+  ]
+}

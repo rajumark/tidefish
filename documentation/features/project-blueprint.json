@@ -1,0 +1,120 @@
+{
+  "project": {
+    "name": "Tidefish",
+    "version": "1.0.0",
+    "description": "Android Development Tool - By an Android Dev. For Android Devs.",
+    "category": "Development Tools",
+    "target_audience": "Android Developers"
+  },
+  "architecture": {
+    "pattern": "MVC (Model-View-Controller)",
+    "ui_framework": "Java Swing",
+    "platform": "Desktop Application",
+    "language": "Kotlin",
+    "build_system": "Gradle"
+  },
+  "core_features": {
+    "device_management": {
+      "description": "Core device detection and management functionality",
+      "screens": ["All screens require device connection"],
+      "components": ["JDeviceSelectorView", "SADBDevices", "DeviceModel"]
+    },
+    "adb_integration": {
+      "description": "Android Debug Bridge integration for device communication",
+      "screens": ["All screens use ADB commands"],
+      "components": ["ADBHelper", "ADBConst", "ADBDevice", "ADBOS"]
+    },
+    "navigation_system": {
+      "description": "Screen navigation and menu management",
+      "screens": ["All screens accessible via navigation"],
+      "components": ["TypeOfScreens", "NavigationMenuHelper", "FirstPageView"]
+    }
+  },
+  "screen_categories": {
+    "device_management": {
+      "screens": ["apps", "settings", "properties"],
+      "focus": "Managing device state and installed applications"
+    },
+    "communication": {
+      "screens": ["calllogs", "messages", "contacts"],
+      "focus": "Accessing communication data and contacts"
+    },
+    "development_tools": {
+      "screens": ["inspector", "lifecycle", "adbterminal"],
+      "focus": "Advanced debugging and development utilities"
+    },
+    "media_management": {
+      "screens": ["media", "calendar"],
+      "focus": "Managing media files and calendar data"
+    },
+    "system_management": {
+      "screens": ["services", "notifications"],
+      "focus": "System-level monitoring and management"
+    }
+  },
+  "key_capabilities": {
+    "device_interaction": {
+      "description": "Full ADB integration for device control",
+      "commands": ["All standard ADB commands supported"],
+      "real_time": true
+    },
+    "data_access": {
+      "description": "Access to Android content providers",
+      "providers": ["SMS", "CallLog", "Contacts", "Calendar", "MediaStore"],
+      "permissions": "Requires proper ADB authorization"
+    },
+    "monitoring": {
+      "description": "Real-time monitoring of device state",
+      "features": ["Service monitoring", "Lifecycle tracking", "Connection status"]
+    },
+    "automation": {
+      "description": "Automated device management features",
+      "features": ["Auto device detection", "Auto ADB download", "Connection recovery"]
+    }
+  },
+  "developer_benefits": {
+    "debugging": {
+      "primary": "Comprehensive debugging tools for Android development",
+      "features": ["ADB terminal", "Service monitoring", "Lifecycle tracking"]
+    },
+    "testing": {
+      "primary": "Testing utilities for Android applications",
+      "features": ["App management", "Data access", "Device simulation"]
+    },
+    "productivity": {
+      "primary": "Productivity enhancements for developers",
+      "features": ["Quick access tools", "Batch operations", "Data export"]
+    },
+    "analysis": {
+      "primary": "Device and application analysis capabilities",
+      "features": ["System properties", "Performance monitoring", "Storage analysis"]
+    }
+  },
+  "technical_specifications": {
+    "platforms": ["Windows", "macOS", "Linux"],
+    "android_support": "All Android versions with ADB support",
+    "connection_types": ["USB", "Wireless ADB"],
+    "data_formats": ["JSON export", "CSV export", "Clipboard copy"],
+    "security": "Local ADB communication only"
+  },
+  "extensibility": {
+    "plugin_architecture": "Modular screen-based architecture",
+    "custom_screens": "Easy addition of new screens via MVC pattern",
+    "adb_commands": "Extensible ADB command integration",
+    "ui_components": "Reusable component library"
+  },
+  "target_use_cases": {
+    "app_development": "Primary use case for Android app developers",
+    "debugging": "Advanced debugging and troubleshooting",
+    "testing": "Application testing and validation",
+    "device_management": "Device configuration and maintenance",
+    "data_analysis": "Device data extraction and analysis"
+  },
+  "competitive_advantages": {
+    "developer_focus": "Built specifically for Android developers",
+    "comprehensive": "All-in-one tool for common Android development tasks",
+    "desktop_native": "Native desktop application performance",
+    "adb_integration": "Deep ADB integration with automation",
+    "open_source": "Transparent and extensible codebase"
+  }
+}

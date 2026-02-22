@@ -1,0 +1,49 @@
+{
+  "screenId": "calendar",
+  "title": "Calendar",
+  "description": "Calendar management screen for viewing and analyzing calendar events and schedules",
+  "category": "productivity",
+  "features": [
+    {
+      "id": "calendar_events_list",
+      "name": "Calendar Events Display",
+      "description": "Show all calendar events with titles, dates, times, and locations",
+      "type": "display",
+      "developer_perspective": "Useful for testing calendar integration and event handling"
+    },
+    {
+      "id": "event_details",
+      "name": "Event Information",
+      "description": "Display detailed event information including attendees, reminders, notes",
+      "type": "display",
+      "developer_perspective": "Essential for testing calendar app functionality and data integrity"
+    },
+    {
+      "id": "calendar_view_modes",
+      "name": "Calendar View Modes",
+      "description": "Switch between day, week, month, and agenda views",
+      "type": "interaction",
+      "developer_perspective": "Important for testing different calendar display formats"
+    },
+    {
+      "id": "event_search_filter",
+      "name": "Event Search and Filter",
+      "description": "Search events by title, location, or filter by date range",
+      "type": "interaction",
+      "developer_perspective": "Helpful for finding specific test events and debugging"
+    }
+  ],
+  "technical_details": {
+    "controller": "JCalendarController",
+    "model": "JCalendarModel",
+    "view": "JCalendarView",
+    "adb_commands": ["content query --uri content://calendar/events"],
+    "data_source": "Android Calendar Provider"
+  },
+  "user_interactions": [
+    "Browse calendar events",
+    "View different time periods",
+    "Search events",
+    "Export calendar data"
+  ]
+}

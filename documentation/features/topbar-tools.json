@@ -1,0 +1,66 @@
+{
+  "featureId": "topbar_tools",
+  "title": "Topbar Tools",
+  "description": "Right-side toolbar utilities and quick access features",
+  "category": "ui_components",
+  "features": [
+    {
+      "id": "menu_button",
+      "name": "Navigation Menu Access",
+      "description": "Quick access to navigation menu for screen switching",
+      "type": "navigation",
+      "developer_perspective": "Essential for user navigation and app usability"
+    },
+    {
+      "id": "feedback_dialog",
+      "name": "Feedback System",
+      "description": "In-app feedback dialog for user feedback and bug reports",
+      "type": "communication",
+      "developer_perspective": "Critical for collecting user feedback and improving the tool"
+    },
+    {
+      "id": "settings_dialog",
+      "name": "Application Settings",
+      "description": "Access to application-wide settings and preferences",
+      "type": "configuration",
+      "developer_perspective": "Important for user customization and tool configuration"
+    },
+    {
+      "id": "quick_tiles",
+      "name": "Quick Settings Panel",
+      "description": "Rapid access to frequently used settings and actions",
+      "type": "utility",
+      "developer_perspective": "Enhances productivity and provides convenient access to common tasks"
+    },
+    {
+      "id": "device_info_display",
+      "name": "Device Status Display",
+      "description": "Show current connected device information in topbar",
+      "type": "display",
+      "developer_perspective": "Provides immediate visibility of device connection status"
+    }
+  ],
+  "technical_details": {
+    "main_classes": [
+      "TopbarView",
+      "TopbarViewController",
+      "TopbarViewModel",
+      "FeedbackUserDialog",
+      "SoftwareSettingsDialog"
+    ],
+    "ui_components": [
+      "Menu Button (ic_menu.svg)",
+      "Feedback Button (ic_feedback.svg)",
+      "Settings Button (ic_ij_settings.svg)",
+      "Quick Tiles Button (ic_toolbar.svg)"
+    ],
+    "layout": "BorderLayout.NORTH",
+    "height": "32px"
+  },
+  "user_interactions": [
+    "Click menu button for navigation",
+    "Access feedback dialog",
+    "Open application settings",
+    "Launch quick settings panel"
+  ]
+}

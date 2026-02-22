@@ -1,0 +1,49 @@
+{
+  "screenId": "lifecycle",
+  "title": "Lifecycle",
+  "description": "Application lifecycle management screen for monitoring and debugging Android app lifecycle events",
+  "category": "development_tools",
+  "features": [
+    {
+      "id": "activity_lifecycle_monitor",
+      "name": "Activity Lifecycle Monitor",
+      "description": "Monitor activity lifecycle events in real-time",
+      "type": "monitoring",
+      "developer_perspective": "Essential for debugging app lifecycle issues and state management"
+    },
+    {
+      "id": "app_state_tracking",
+      "name": "Application State Tracking",
+      "description": "Track application state changes including foreground/background transitions",
+      "type": "monitoring",
+      "developer_perspective": "Critical for understanding app behavior and optimization"
+    },
+    {
+      "id": "lifecycle_events_log",
+      "name": "Lifecycle Events Log",
+      "description": "Display detailed log of all lifecycle events with timestamps",
+      "type": "display",
+      "developer_perspective": "Useful for analyzing sequence of events and debugging"
+    },
+    {
+      "id": "component_state_viewer",
+      "name": "Component State Viewer",
+      "description": "View current state of activities, services, and broadcast receivers",
+      "type": "display",
+      "developer_perspective": "Important for comprehensive app state analysis"
+    }
+  ],
+  "technical_details": {
+    "controller": "JLifeCycleController",
+    "model": "JLifeCycleModel",
+    "view": "JLifeCycleView",
+    "adb_commands": ["shell dumpsys activity", "shell am stack list"],
+    "data_source": "Android Activity Manager"
+  },
+  "user_interactions": [
+    "Monitor lifecycle events",
+    "View activity stack",
+    "Track app states",
+    "Export lifecycle logs"
+  ]
+}

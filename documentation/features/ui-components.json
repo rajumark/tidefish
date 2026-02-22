@@ -1,0 +1,75 @@
+{
+  "featureId": "ui_components",
+  "title": "UI Components Library",
+  "description": "Reusable UI components and styling utilities for consistent interface",
+  "category": "ui_framework",
+  "features": [
+    {
+      "id": "icon_loader",
+      "name": "SVG Icon Loader",
+      "description": "Load and display SVG icons with proper scaling and theming",
+      "type": "utility",
+      "developer_perspective": "Essential for consistent icon usage and theming"
+    },
+    {
+      "id": "style_utilities",
+      "name": "Component Styling",
+      "description": "Consistent styling for buttons, inputs, and other UI elements",
+      "type": "styling",
+      "developer_perspective": "Critical for maintaining visual consistency across the application"
+    },
+    {
+      "id": "color_scheme",
+      "name": "Color Management",
+      "description": "Centralized color definitions and theme management",
+      "type": "theming",
+      "developer_perspective": "Important for theming and visual consistency"
+    },
+    {
+      "id": "font_utilities",
+      "name": "Font Management",
+      "description": "Font loading and text styling utilities",
+      "type": "typography",
+      "developer_perspective": "Ensures consistent text rendering and accessibility"
+    },
+    {
+      "id": "layout_helpers",
+      "name": "Layout Utilities",
+      "description": "Helper functions for common layout patterns",
+      "type": "layout",
+      "developer_perspective": "Streamlines UI development and ensures consistency"
+    },
+    {
+      "id": "red_dot_overlay",
+      "name": "Notification Badge",
+      "description": "Red dot overlay for indicating notifications or updates",
+      "type": "indicator",
+      "developer_perspective": "Useful for drawing attention to important UI elements"
+    }
+  ],
+  "technical_details": {
+    "main_classes": [
+      "RefreshButtonIcon",
+      "LoadSvgAsIcon",
+      "LightColorsConst",
+      "FontUtil",
+      "Utils",
+      "RedDotOverlay"
+    ],
+    "style_classes": [
+      "applyRoundedSelection",
+      "applyRoundedSelection2",
+      "applyStyleForComboBox",
+      "applyStyleInputBox",
+      "applyStyleSplitPan"
+    ],
+    "icon_formats": ["SVG"],
+    "theme_support": "Light theme with FlatLaf integration"
+  },
+  "integration_points": [
+    "All views - Component styling",
+    "Topbar - Icon loading",
+    "Device selector - Styled components",
+    "Settings - Theme management"
+  ]
+}

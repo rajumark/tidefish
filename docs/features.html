@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tidefish Features - Complete Android Development Tool</title>
+    <meta name="description" content="Explore comprehensive features of Tidefish - the ultimate Android development tool. Device management, ADB integration, debugging tools, and more built by developers for developers.">
+    <meta name="keywords" content="Android development tool, ADB integration, device management, Android debugging, app testing, Android developer tools, Tidefish features">
+    <meta name="author" content="Tidefish - Android Development Tool">
+    <meta property="og:title" content="Tidefish Features - Complete Android Development Tool">
+    <meta property="og:description" content="Explore comprehensive features of Tidefish - device management, ADB integration, debugging tools, and more built by developers for developers.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://rajumark.github.io/tidefish/features.html">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Tidefish Features - Complete Android Development Tool">
+    <meta name="twitter:description" content="Explore comprehensive features of Tidefish - device management, ADB integration, debugging tools, and more.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --sf-pro-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --sf-pro-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            
+            --color-primary: #000000;
+            --color-secondary: #86868b;
+            --color-tertiary: #f5f5f7;
+            --color-background: #ffffff;
+            --color-button: #0071e3;
+            --color-button-hover: #0077ed;
+            --color-accent: #5856d6;
+            --color-success: #34c759;
+            --color-warning: #ff9500;
+            --color-error: #ff3b30;
+            
+            --font-size-hero: clamp(32px, 6vw, 56px);
+            --font-size-title: clamp(24px, 4vw, 40px);
+            --font-size-subtitle: clamp(18px, 3vw, 28px);
+            --font-size-body: 17px;
+            --font-size-caption: 14px;
+            --font-size-small: 12px;
+            
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+            
+            --border-radius-sm: 6px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 18px;
+            --border-radius-xl: 24px;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: var(--sf-pro-text);
+            font-size: var(--font-size-body);
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+            color: var(--color-primary);
+            background-color: var(--color-background);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: var(--spacing-md);
+            padding-right: var(--spacing-md);
+        }
+
+        .logo {
+            font-family: var(--sf-pro-display);
+            font-size: 21px;
+            font-weight: 600;
+            letter-spacing: -0.016em;
+            color: var(--color-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: none;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: var(--border-radius-sm);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: var(--sf-pro-text);
+            font-size: var(--font-size-caption);
+            font-weight: 400;
+            color: var(--color-secondary);
+            text-decoration: none;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--color-button);
+            background-color: rgba(0, 113, 227, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: calc(var(--spacing-3xl) + 60px) 0 var(--spacing-2xl);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-title {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-hero);
+            font-weight: 700;
+            letter-spacing: -0.033em;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(180deg, #1d1d1f 0%, #86868b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-subtitle);
+            font-weight: 400;
+            letter-spacing: 0.004em;
+            line-height: 1.3;
+            color: var(--color-secondary);
+            margin-bottom: var(--spacing-xl);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Search Section */
+        .search-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: var(--spacing-md) var(--spacing-lg);
+            font-family: var(--sf-pro-text);
+            font-size: var(--font-size-body);
+            border: 2px solid var(--color-tertiary);
+            border-radius: var(--border-radius-lg);
+            background-color: var(--color-background);
+            transition: var(--transition-smooth);
+            outline: none;
+        }
+
+        .search-input:focus {
+            border-color: var(--color-button);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: var(--spacing-md);
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-secondary);
+            pointer-events: none;
+        }
+
+        /* Filter Tags */
+        .filter-section {
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .filter-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-sm);
+            justify-content: center;
+        }
+
+        .filter-tag {
+            padding: var(--spacing-xs) var(--spacing-md);
+            font-family: var(--sf-pro-text);
+            font-size: var(--font-size-caption);
+            font-weight: 500;
+            color: var(--color-secondary);
+            background-color: var(--color-tertiary);
+            border: 1px solid transparent;
+            border-radius: var(--border-radius-md);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            text-decoration: none;
+        }
+
+        .filter-tag:hover {
+            background-color: var(--color-button);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .filter-tag.active {
+            background-color: var(--color-button);
+            color: white;
+            border-color: var(--color-button);
+        }
+
+        /* Features Grid */
+        .features-section {
+            padding-bottom: var(--spacing-3xl);
+        }
+
+        .section-title {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-title);
+            font-weight: 600;
+            letter-spacing: -0.022em;
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+            color: var(--color-primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .feature-card {
+            background-color: var(--color-background);
+            border: 1px solid var(--color-tertiary);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            transition: var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--color-button), var(--color-accent));
+            transform: scaleX(0);
+            transition: var(--transition-smooth);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--color-button);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: flex-start;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--color-button), var(--color-accent));
+            border-radius: var(--border-radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .feature-title-section {
+            flex: 1;
+        }
+
+        .feature-title {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-subtitle);
+            font-weight: 600;
+            letter-spacing: -0.016em;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-primary);
+        }
+
+        .feature-category {
+            font-size: var(--font-size-caption);
+            color: var(--color-secondary);
+            font-weight: 500;
+        }
+
+        .feature-description {
+            font-size: var(--font-size-body);
+            color: var(--color-secondary);
+            line-height: 1.5;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .feature-tag {
+            padding: 4px var(--spacing-sm);
+            font-size: var(--font-size-small);
+            font-weight: 500;
+            color: var(--color-button);
+            background-color: rgba(0, 113, 227, 0.1);
+            border-radius: var(--border-radius-sm);
+        }
+
+        .feature-benefits {
+            background-color: var(--color-tertiary);
+            border-radius: var(--border-radius-md);
+            padding: var(--spacing-md);
+            margin-top: var(--spacing-md);
+        }
+
+        .benefits-title {
+            font-size: var(--font-size-caption);
+            font-weight: 600;
+            color: var(--color-primary);
+            margin-bottom: var(--spacing-xs);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .benefit-item {
+            font-size: var(--font-size-caption);
+            color: var(--color-secondary);
+            margin-bottom: var(--spacing-xs);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+        }
+
+        .benefit-item::before {
+            content: '✓';
+            color: var(--color-success);
+            font-weight: 600;
+        }
+
+        /* Category Sections */
+        .category-section {
+            margin-bottom: var(--spacing-3xl);
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .category-title {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-title);
+            font-weight: 600;
+            letter-spacing: -0.022em;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-primary);
+        }
+
+        .category-description {
+            font-size: var(--font-size-body);
+            color: var(--color-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--color-tertiary), #e8e8ed);
+            padding: var(--spacing-2xl) 0;
+            margin: var(--spacing-3xl) 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: var(--spacing-md);
+        }
+
+        .stat-number {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-title);
+            font-weight: 700;
+            color: var(--color-button);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .stat-label {
+            font-size: var(--font-size-body);
+            color: var(--color-secondary);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: var(--color-background);
+        }
+
+        .footer-content {
+            color: var(--color-secondary);
+            font-size: var(--font-size-caption);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: var(--spacing-xs) var(--spacing-md);
+            }
+
+            .hero {
+                padding: calc(var(--spacing-2xl) + 60px) 0 var(--spacing-xl);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-md);
+            }
+
+            .filter-tags {
+                justify-content: flex-start;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo span {
+                display: none;
+            }
+
+            .nav-links {
+                gap: var(--spacing-sm);
+            }
+
+            .nav-link {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .hero {
+                padding: calc(var(--spacing-xl) + 60px) 0 var(--spacing-lg);
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+
+        /* No results */
+        .no-results {
+            text-align: center;
+            padding: var(--spacing-2xl);
+            color: var(--color-secondary);
+        }
+
+        .no-results-icon {
+            font-size: 48px;
+            margin-bottom: var(--spacing-md);
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">
+                    <img src="logo.png" alt="Tidefish Logo">
+                </div>
+                <span>Tidefish</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="features.html" class="nav-link active">Features</a>
+                <a href="https://github.com/rajumark/tidefish/releases" class="nav-link" target="_blank">Download</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1 class="hero-title">Complete Android Development Toolkit</h1>
+            <p class="hero-subtitle">Explore powerful features built by Android developers, for Android developers. Everything you need for debugging, testing, and device management.</p>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="container">
+            <div class="search-container">
+                <input type="text" class="search-input" id="searchInput" placeholder="Search features, screens, or capabilities...">
+                <span class="search-icon">🔍</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-tags">
+                <button class="filter-tag active" data-category="all">All Features</button>
+                <button class="filter-tag" data-category="device_management">Device Management</button>
+                <button class="filter-tag" data-category="communication">Communication</button>
+                <button class="filter-tag" data-category="development_tools">Development Tools</button>
+                <button class="filter-tag" data-category="media_management">Media Management</button>
+                <button class="filter-tag" data-category="system_management">System Management</button>
+                <button class="filter-tag" data-category="core_features">Core Features</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">13</div>
+                    <div class="stat-label">Feature Screens</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">ADB Integration</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Platform Support</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label">Use Cases</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Device Management Category -->
+    <section class="category-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Device Management</h2>
+                <p class="category-description">Complete control over your Android devices and applications</p>
+            </div>
+            <div class="features-grid" id="device-management-grid">
+                <!-- Features will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Communication Category -->
+    <section class="category-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Communication</h2>
+                <p class="category-description">Access and manage messages, calls, and contacts</p>
+            </div>
+            <div class="features-grid" id="communication-grid">
+                <!-- Features will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Tools Category -->
+    <section class="category-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Development Tools</h2>
+                <p class="category-description">Advanced debugging and development utilities</p>
+            </div>
+            <div class="features-grid" id="development-tools-grid">
+                <!-- Features will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Features Category -->
+    <section class="category-section">
+        <div class="container">
+            <div class="category-header">
+                <h2 class="category-title">Core Features</h2>
+                <p class="category-description">Essential functionality that powers Tidefish</p>
+            </div>
+            <div class="features-grid" id="core-features-grid">
+                <!-- Features will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Tidefish. Built with precision for Android developers.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Features data based on JSON analysis
+        const featuresData = {
+            screens: [
+                {
+                    id: "apps",
+                    title: "Apps Management",
+                    category: "device_management",
+                    description: "Complete application management with installation, uninstallation, and detailed app information viewing.",
+                    icon: "📱",
+                    tags: ["App Management", "Package Info", "Debugging"],
+                    benefits: ["Debug app-related issues", "Understand device state", "Test app behavior"]
+                },
+                {
+                    id: "settings",
+                    title: "Device Settings",
+                    category: "device_management",
+                    description: "Access and modify device settings including developer options and system configurations.",
+                    icon: "⚙️",
+                    tags: ["System Settings", "Developer Options", "Configuration"],
+                    benefits: ["Debug settings issues", "Automated testing", "Device configuration"]
+                },
+                {
+                    id: "properties",
+                    title: "Device Properties",
+                    category: "device_management",
+                    description: "Comprehensive device information including hardware specs, system properties, and network details.",
+                    icon: "📊",
+                    tags: ["Device Info", "Hardware Specs", "System Properties"],
+                    benefits: ["Device compatibility", "Performance testing", "Resource planning"]
+                },
+                {
+                    id: "calllogs",
+                    title: "Call Logs",
+                    category: "communication",
+                    description": "Access and analyze call history with detailed information about incoming, outgoing, and missed calls.",
+                    icon: "📞",
+                    tags: ["Call History", "Communication", "Testing"],
+                    benefits: ["Test communication apps", "Debug call features", "Data analysis"]
+                },
+                {
+                    id: "messages",
+                    title: "Messages",
+                    category: "communication",
+                    description: "Complete SMS/MMS management with conversation threads and message content viewing.",
+                    icon: "💬",
+                    tags: ["SMS/MMS", "Conversations", "Messaging"],
+                    benefits: ["Test messaging apps", "Debug message flow", "Content verification"]
+                },
+                {
+                    id: "contacts",
+                    title: "Contacts",
+                    category: "communication",
+                    description: "Manage and view contact information with search and export capabilities.",
+                    icon: "👥",
+                    tags: ["Contact Management", "Address Book", "Data Export"],
+                    benefits: ["Test contact apps", "Data synchronization", "Contact management"]
+                },
+                {
+                    id: "media",
+                    title: "Media Management",
+                    category: "media_management",
+                    description: "Browse, preview, and manage media files including images, videos, and audio.",
+                    icon: "🎵",
+                    tags: ["Media Files", "Storage", "File Management"],
+                    benefits: ["Test media apps", "Storage analysis", "File handling"]
+                },
+                {
+                    id: "calendar",
+                    title: "Calendar",
+                    category: "media_management",
+                    description: "View and analyze calendar events with different view modes and search capabilities.",
+                    icon: "📅",
+                    tags: ["Calendar Events", "Scheduling", "Time Management"],
+                    benefits: ["Test calendar apps", "Event management", "Scheduling verification"]
+                },
+                {
+                    id: "services",
+                    title: "Services",
+                    category: "system_management",
+                    description": "Monitor and control system services with real-time status and resource usage tracking.",
+                    icon: "⚡",
+                    tags: ["System Services", "Background Tasks", "Monitoring"],
+                    benefits: ["Performance analysis", "Service debugging", "Resource management"]
+                },
+                {
+                    id: "lifecycle",
+                    title": "Lifecycle",
+                    category: "development_tools",
+                    description": "Monitor application lifecycle events and activity state changes in real-time.",
+                    icon: "🔄",
+                    tags: ["App Lifecycle", "Activity States", "Debugging"],
+                    benefits: ["Debug lifecycle issues", "State management", "Performance optimization"]
+                },
+                {
+                    id: "adbterminal",
+                    title: "ADB Terminal",
+                    category: "development_tools",
+                    description: "Direct ADB command execution with history, auto-completion, and saved commands.",
+                    icon: "💻",
+                    tags: ["ADB Commands", "Terminal", "Debugging"],
+                    benefits: ["Advanced debugging", "System control", "Automation"]
+                },
+                {
+                    id: "notifications",
+                    title: "Notifications",
+                    category: "system_management",
+                    description": "View and manage system and app notifications with detailed information and history.",
+                    icon: "🔔",
+                    tags: ["Notifications", "System Alerts", "App Management"],
+                    benefits: ["Debug notifications", "Alert testing", "User experience"]
+                }
+            ],
+            coreFeatures: [
+                {
+                    id: "device_management",
+                    title: "Device Detection & Management",
+                    category: "core_features",
+                    description: "Automatic device detection with real-time monitoring and seamless device switching.",
+                    icon: "🔍",
+                    tags: ["Auto Detection", "Real-time", "Multi-device"],
+                    benefits: ["Seamless workflow", "Multi-device testing", "Connection stability"]
+                },
+                {
+                    id: "adb_integration",
+                    title: "Deep ADB Integration",
+                    category: "core_features",
+                    description: "Complete ADB integration with auto-download, path detection, and command execution.",
+                    icon: "🔧",
+                    tags: ["ADB", "Auto Setup", "Command Execution"],
+                    benefits: ["Zero setup", "Cross-platform", "Full ADB support"]
+                },
+                {
+                    id: "ui_components",
+                    title: "Modern UI Framework",
+                    category: "core_features",
+                    description: "Consistent, modern UI components with theming and responsive design.",
+                    icon: "🎨",
+                    tags: ["UI Components", "Theming", "Responsive"],
+                    benefits: ["Consistent experience", "Modern design", "Accessibility"]
+                },
+                {
+                    id: "topbar_tools",
+                    title: "Quick Access Tools",
+                    category: "core_features",
+                    description: "Right-side toolbar with quick access to settings, feedback, and utilities.",
+                    icon: "🛠️",
+                    tags: ["Quick Access", "Productivity", "Tools"],
+                    benefits: ["Enhanced productivity", "Quick actions", "User feedback"]
+                }
+            ]
+        };
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderFeatures();
+            setupFilters();
+            setupSearch();
+            addAnimations();
+        });
+
+        function renderFeatures() {
+            // Render screen features
+            Object.keys(featuresData.screens).forEach(key => {
+                const feature = featuresData.screens[key];
+                const grid = document.getElementById(`${feature.category}-grid`);
+                if (grid) {
+                    grid.appendChild(createFeatureCard(feature));
+                }
+            });
+
+            // Render core features
+            featuresData.coreFeatures.forEach(feature => {
+                const grid = document.getElementById('core-features-grid');
+                if (grid) {
+                    grid.appendChild(createFeatureCard(feature));
+                }
+            });
+        }
+
+        function createFeatureCard(feature) {
+            const card = document.createElement('div');
+            card.className = 'feature-card fade-in';
+            card.dataset.category = feature.category;
+            card.dataset.title = feature.title.toLowerCase();
+            card.dataset.description = feature.description.toLowerCase();
+            card.dataset.tags = feature.tags.join(' ').toLowerCase();
+            
+            card.innerHTML = `
+                <div class="feature-header">
+                    <div class="feature-icon">${feature.icon}</div>
+                    <div class="feature-title-section">
+                        <h3 class="feature-title">${feature.title}</h3>
+                        <div class="feature-category">${formatCategory(feature.category)}</div>
+                    </div>
+                </div>
+                <p class="feature-description">${feature.description}</p>
+                <div class="feature-tags">
+                    ${feature.tags.map(tag => `<span class="feature-tag">${tag}</span>`).join('')}
+                </div>
+                <div class="feature-benefits">
+                    <div class="benefits-title">Developer Benefits</div>
+                    ${feature.benefits.map(benefit => `<div class="benefit-item">${benefit}</div>`).join('')}
+                </div>
+            `;
+            
+            return card;
+        }
+
+        function formatCategory(category) {
+            return category.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+        }
+
+        function setupFilters() {
+            const filterTags = document.querySelectorAll('.filter-tag');
+            const featureCards = document.querySelectorAll('.feature-card');
+
+            filterTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    // Update active state
+                    filterTags.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const category = this.dataset.category;
+                    
+                    // Show/hide features
+                    featureCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'translateY(0)';
+                            }, 10);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'translateY(20px)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    });
+                });
+            });
+        }
+
+        function setupSearch() {
+            const searchInput = document.getElementById('searchInput');
+            const featureCards = document.querySelectorAll('.feature-card');
+            const noResults = document.createElement('div');
+            noResults.className = 'no-results';
+            noResults.innerHTML = `
+                <div class="no-results-icon">🔍</div>
+                <h3>No features found</h3>
+                <p>Try searching with different keywords</p>
+            `;
+            noResults.style.display = 'none';
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase();
+                let hasResults = false;
+
+                featureCards.forEach(card => {
+                    const title = card.dataset.title;
+                    const description = card.dataset.description;
+                    const tags = card.dataset.tags;
+                    
+                    if (query === '' || title.includes(query) || description.includes(query) || tags.includes(query)) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 10);
+                        hasResults = true;
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+
+                // Show/hide no results message
+                if (!hasResults && query !== '') {
+                    if (!document.querySelector('.no-results')) {
+                        document.querySelector('.features-section').appendChild(noResults);
+                    }
+                    noResults.style.display = 'block';
+                } else {
+                    if (document.querySelector('.no-results')) {
+                        noResults.style.display = 'none';
+                    }
+                }
+
+                // Reset filter when searching
+                if (query !== '') {
+                    document.querySelectorAll('.filter-tag').forEach(tag => {
+                        tag.classList.remove('active');
+                    });
+                    document.querySelector('[data-category="all"]').classList.add('active');
+                }
+            });
+        }
+
+        function addAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.feature-card').forEach((card, index) => {
+                card.classList.add(`stagger-${(index % 4) + 1}`);
+                observer.observe(card);
+            });
+        }
+    </script>
+</body>
+</html>

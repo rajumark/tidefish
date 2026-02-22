@@ -1,0 +1,56 @@
+{
+  "screenId": "properties",
+  "title": "Properties",
+  "description": "Device properties screen for viewing comprehensive device information and specifications",
+  "category": "device_information",
+  "features": [
+    {
+      "id": "device_info",
+      "name": "Device Information",
+      "description": "Display basic device information including model, manufacturer, Android version",
+      "type": "display",
+      "developer_perspective": "Essential for understanding device capabilities and compatibility"
+    },
+    {
+      "id": "system_properties",
+      "name": "System Properties",
+      "description": "Show detailed system properties and build information",
+      "type": "display",
+      "developer_perspective": "Critical for debugging device-specific issues and optimization"
+    },
+    {
+      "id": "hardware_specs",
+      "name": "Hardware Specifications",
+      "description": "Display hardware information including CPU, memory, storage, sensors",
+      "type": "display",
+      "developer_perspective": "Important for performance testing and resource planning"
+    },
+    {
+      "id": "network_info",
+      "name": "Network Information",
+      "description": "Show network configuration and connectivity details",
+      "type": "display",
+      "developer_perspective": "Useful for debugging network-related features and connectivity issues"
+    },
+    {
+      "id": "battery_status",
+      "name": "Battery Status",
+      "description": "Display battery information including level, health, temperature",
+      "type": "display",
+      "developer_perspective": "Important for power optimization and battery-related testing"
+    }
+  ],
+  "technical_details": {
+    "controller": "DevicePropertiesController",
+    "model": "DevicePropertiesModel",
+    "view": "DevicePropertiesView",
+    "adb_commands": ["shell getprop", "shell dumpsys battery", "shell cat /proc/cpuinfo"],
+    "data_source": "Android System Properties"
+  },
+  "user_interactions": [
+    "View device information",
+    "Copy properties to clipboard",
+    "Export device report",
+    "Refresh device data"
+  ]
+}

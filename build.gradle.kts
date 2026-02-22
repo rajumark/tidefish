@@ -8,7 +8,7 @@ plugins {
 }
 
 group = "com.tidefish.app"
-version = "1.0.${(System.currentTimeMillis() / 1000) % 65535}"
+version = "1.0.0"
 
 repositories {
     mavenCentral()

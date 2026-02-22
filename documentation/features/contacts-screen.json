@@ -1,0 +1,49 @@
+{
+  "screenId": "contacts",
+  "title": "Contacts",
+  "description": "Contacts management screen for viewing and managing device contact information",
+  "category": "communication",
+  "features": [
+    {
+      "id": "contacts_list",
+      "name": "Contacts List",
+      "description": "Display all contacts with names, phone numbers, and basic information",
+      "type": "display",
+      "developer_perspective": "Essential for testing contact-related features and apps"
+    },
+    {
+      "id": "contact_details",
+      "name": "Contact Details View",
+      "description": "Show comprehensive contact information including multiple numbers, emails, addresses",
+      "type": "display",
+      "developer_perspective": "Critical for testing contact data handling and display"
+    },
+    {
+      "id": "contact_search",
+      "name": "Contact Search",
+      "description": "Search contacts by name, phone number, or other attributes",
+      "type": "interaction",
+      "developer_perspective": "Useful for finding specific test contacts quickly"
+    },
+    {
+      "id": "contact_export_import",
+      "name": "Contact Export/Import",
+      "description": "Export contacts for backup or import contacts for testing",
+      "type": "action",
+      "developer_perspective": "Important for testing contact synchronization and backup features"
+    }
+  ],
+  "technical_details": {
+    "controller": "JContactsController",
+    "model": "JContactsModel",
+    "view": "JContactsView",
+    "adb_commands": ["content query --uri content://contacts/people"],
+    "data_source": "Android Contacts Provider"
+  },
+  "user_interactions": [
+    "Browse contacts list",
+    "View contact details",
+    "Search contacts",
+    "Export contact data"
+  ]
+}

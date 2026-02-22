@@ -1,0 +1,59 @@
+{
+  "featureId": "device_management",
+  "title": "Device Management",
+  "description": "Core device detection, connection, and management functionality",
+  "category": "core_features",
+  "features": [
+    {
+      "id": "device_detection",
+      "name": "Automatic Device Detection",
+      "description": "Automatically detect connected Android devices via ADB",
+      "type": "core",
+      "developer_perspective": "Fundamental for any Android development tool - enables seamless device interaction"
+    },
+    {
+      "id": "device_selector",
+      "name": "Device Selection Interface",
+      "description": "Interactive dropdown for selecting from multiple connected devices",
+      "type": "ui_component",
+      "developer_perspective": "Essential for multi-device testing scenarios and device switching"
+    },
+    {
+      "id": "device_status_monitoring",
+      "name": "Real-time Device Status",
+      "description": "Monitor device connection status and automatically refresh device list",
+      "type": "monitoring",
+      "developer_perspective": "Critical for maintaining connection stability and user experience"
+    },
+    {
+      "id": "device_identification",
+      "name": "Device Information Display",
+      "description": "Show human-readable device names and identification details",
+      "type": "display",
+      "developer_perspective": "Important for device differentiation in testing environments"
+    },
+    {
+      "id": "connection_recovery",
+      "name": "Automatic Connection Recovery",
+      "description": "Attempt to recover connection when device is disconnected",
+      "type": "recovery",
+      "developer_perspective": "Essential for robust development workflow and minimizing interruptions"
+    }
+  ],
+  "technical_details": {
+    "main_classes": [
+      "JDeviceSelectorView",
+      "SADBDevices",
+      "DeviceModel",
+      "DeviceNameShow"
+    ],
+    "adb_commands": ["devices", "devices -l"],
+    "refresh_interval": "2000ms",
+    "data_source": "ADB Device List"
+  },
+  "integration_points": [
+    "TopbarView - Device selector integration",
+    "FirstPageView - Device model distribution",
+    "All screen controllers - Device dependency injection"
+  ]
+}

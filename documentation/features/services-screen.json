@@ -1,0 +1,49 @@
+{
+  "screenId": "services",
+  "title": "Services",
+  "description": "System services management screen for monitoring and controlling Android background services",
+  "category": "system_management",
+  "features": [
+    {
+      "id": "running_services_list",
+      "name": "Running Services List",
+      "description": "Display all currently running system and application services",
+      "type": "display",
+      "developer_perspective": "Essential for debugging background operations and service lifecycle"
+    },
+    {
+      "id": "service_details",
+      "name": "Service Information",
+      "description": "Show detailed information about each service including PID, memory usage, status",
+      "type": "display",
+      "developer_perspective": "Critical for performance analysis and resource management"
+    },
+    {
+      "id": "service_control",
+      "name": "Service Control",
+      "description": "Start, stop, or restart specific services",
+      "type": "action",
+      "developer_perspective": "Useful for testing service behavior and recovery scenarios"
+    },
+    {
+      "id": "service_monitoring",
+      "name": "Service Monitoring",
+      "description": "Real-time monitoring of service status and resource consumption",
+      "type": "monitoring",
+      "developer_perspective": "Important for identifying performance bottlenecks"
+    }
+  ],
+  "technical_details": {
+    "controller": "JProcessesController",
+    "model": "JProcessesModel",
+    "view": "JProcessesView",
+    "adb_commands": ["shell service list", "shell dumpsys activity services"],
+    "data_source": "Android Activity Manager"
+  },
+  "user_interactions": [
+    "View running services",
+    "Check service status",
+    "Stop/start services",
+    "Monitor resource usage"
+  ]
+}

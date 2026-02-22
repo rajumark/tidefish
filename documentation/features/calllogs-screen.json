@@ -1,0 +1,42 @@
+{
+  "screenId": "calllogs",
+  "title": "Call Logs",
+  "description": "Call history management screen for viewing and analyzing phone call records",
+  "category": "communication",
+  "features": [
+    {
+      "id": "call_history_display",
+      "name": "Call History Display",
+      "description": "Show detailed call logs including incoming, outgoing, and missed calls",
+      "type": "display",
+      "developer_perspective": "Useful for testing communication apps and call-related features"
+    },
+    {
+      "id": "call_details_view",
+      "name": "Call Details",
+      "description": "Display detailed information about each call including duration, timestamp, contact info",
+      "type": "display",
+      "developer_perspective": "Essential for debugging call functionality and timing issues"
+    },
+    {
+      "id": "call_log_filtering",
+      "name": "Call Log Filtering",
+      "description": "Filter call logs by type, date range, or contact",
+      "type": "interaction",
+      "developer_perspective": "Helpful for specific testing scenarios and data analysis"
+    }
+  ],
+  "technical_details": {
+    "controller": "JCallLogsController",
+    "model": "JCallLogsModel",
+    "view": "JCallLogsView",
+    "adb_commands": ["content query --uri content://call_log/calls"],
+    "data_source": "Android CallLog Provider"
+  },
+  "user_interactions": [
+    "Browse call history",
+    "Filter by call type",
+    "Export call logs",
+    "Search specific calls"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "screenId": "media",
+  "title": "Media",
+  "description": "Media management screen for accessing and managing device media files and storage",
+  "category": "media_management",
+  "features": [
+    {
+      "id": "media_browser",
+      "name": "Media File Browser",
+      "description": "Browse and view media files including images, videos, and audio",
+      "type": "display",
+      "developer_perspective": "Essential for testing media apps and file handling"
+    },
+    {
+      "id": "media_preview",
+      "name": "Media Preview",
+      "description": "Preview media files directly within the application",
+      "type": "display",
+      "developer_perspective": "Useful for verifying media compatibility and rendering"
+    },
+    {
+      "id": "storage_analysis",
+      "name": "Storage Analysis",
+      "description": "Analyze device storage usage by media type and location",
+      "type": "analysis",
+      "developer_perspective": "Important for optimizing app storage usage"
+    },
+    {
+      "id": "media_transfer",
+      "name": "Media Transfer",
+      "description": "Transfer media files between device and computer",
+      "type": "action",
+      "developer_perspective": "Critical for testing media upload/download functionality"
+    }
+  ],
+  "technical_details": {
+    "controller": "JMediaController",
+    "model": "JMediaModel",
+    "view": "JMediaView",
+    "adb_commands": ["shell ls /sdcard/", "shell find /sdcard/ -name \"*.jpg\""],
+    "data_source": "Android File System"
+  },
+  "user_interactions": [
+    "Browse media folders",
+    "Preview media files",
+    "Download media to computer",
+    "Upload media to device"
+  ]
+}
