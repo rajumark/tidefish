@@ -1,0 +1,64 @@
+on:
+  push:
+    branches: [ swing ]
+
+jobs:
+
+  build-macos-intel:
+    if: contains(github.event.head_commit.message, '#go')
+    runs-on: macos-13   # ✅ Intel runner
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Git user
+        run: |
+          git config --global user.name "rajumark"
+          git config --global user.email "raju348636@gmail.com"
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Package for macOS Intel
+        run: ./gradlew :packageDistributionForCurrentOS
+
+      - name: Publish to Private Repo
+        env:
+          PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_PAT }}
+        run: |
+          current_dir=$(pwd)
+          file_path="./build.gradle.kts"
+          version=$(grep -oE 'packageVersion = "[0-9]+\.[0-9]+\.[0-9]+"' $file_path | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+
+          echo "Current version: $version"
+          dmg_file_path="$current_dir/build/compose/binaries/main/dmg/ADBCard-$version.dmg"
+
+          if [ -f "$dmg_file_path" ]; then
+            echo "DMG file path: $dmg_file_path"
+
+            git clone https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
+
+            target_dir="ADBCard-Releases/macos/x64"
+            if [ -d "$target_dir" ]; then
+              echo "Cleaning existing files in $target_dir"
+              rm -rf "$target_dir"/*
+            fi
+
+            mkdir -p "$target_dir"
+            cp "$dmg_file_path" "$target_dir/"
+
+            cd ADBCard-Releases
+            git add .
+            git commit -m "Update macOS Intel: $version"
+            git push https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
+          else
+            echo "DMG not found: $dmg_file_path"
+          fi

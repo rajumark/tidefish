@@ -1,0 +1,158 @@
+on:
+  push:
+    branches: [ swing ] #use only "swing" to publish in branch
+
+jobs:
+
+  build-windows:
+    if: contains(github.event.head_commit.message, '#go')
+    runs-on: windows-latest
+
+    steps:
+      - name: Set up Git user
+        run: |
+          git config --global user.name "rajumark"
+          git config --global user.email "raju348636@gmail.com"
+        env:
+          GIT_AUTHOR_NAME: ${{ secrets.GIT_AUTHOR_NAME }}
+          GIT_AUTHOR_EMAIL: ${{ secrets.GIT_AUTHOR_EMAIL }}
+
+      - uses: actions/checkout@v3
+
+      - name: Set up OpenSSL
+        run: |
+          choco install openssl
+
+      - name: Convert PEM key to PFX format
+        run: |
+          openssl pkcs12 -export -out codesign.pfx -inkey sign/codesign.key -in sign/codesign.crt -password pass:yourpassword
+        env:
+          OPENSSL_CONF: C:\Program Files\OpenSSL-Win64\bin\openssl.cfg
+
+#      - name: Install windows-sdk-10-version-2004-all
+#        run: |
+#          choco install windows-sdk-10-version-2004-all
+
+#      - name: List Files
+#        run: |
+#          dir "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\"
+
+#      - name: Find all signtool
+#        run: |
+#          dir C:\ /s /b | findstr /i "signtool"
+#        shell: cmd
+
+
+#      - name: Find signtool.exe location
+#        shell: pwsh
+#        run: |
+#          $signtoolPath = (Get-Command signtool.exe).Source
+#          Write-Host "signtool.exe found at: $signtoolPath"
+#      - name: choco Install signtool
+#        run: |
+#          choco install signtool
+
+#      - name: Find signtool.exe in the specified directory
+#        run: |
+#          if (Test-Path "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe") {
+#            Write-Output "signtool.exe found at: C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe"
+#          } else {
+#            Write-Output "signtool.exe not found in the specified directory."
+#          }
+#        shell: pwsh
+
+#      - name: choco Install signtool
+#        run: |
+#          choco install "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe"
+      - name: check choco versions
+        run: choco search windows-sdk
+
+      - name: Install Windows SDK 10 Version 2004
+        run: choco install windows-sdk-10.0 -y
+
+      #      - name: Sign MSI File pre
+#        run: |
+#          $signtoolPath = "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe"
+#          $msiPath = "$env:GITHUB_WORKSPACE/build/compose/binaries/main/msi/ADBCard-1.0.3.msi"
+#          & $signtoolPath sign /f "codesign.pfx" /p "yourpassword" /tr "http://timestamp.digicert.com" /td SHA256 $msiPath
+#        shell: pwsh
+
+#      - name: Verify MSI File
+#        run: |
+#          $signtoolPath = "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe"
+#          $msiPath = "$env:GITHUB_WORKSPACE/build/compose/binaries/main/msi/ADBCard-1.0.3.msi"
+#          & $signtoolPath verify /pa $msiPath
+#        shell: pwsh
+
+#      - name: Sign MSI
+#        run: |
+#          $current_dir = Get-Location
+#          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /f codesign.pfx /p yourpassword /tr http://timestamp.digicert.com /td SHA256 "$current_dir/build/compose/binaries/main/msi/ADBCard-1.0.3.msi"
+
+#          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /f codesign.pfx /p yourpassword /t http://timestamp.digicert.com build/compose/binaries/main/msi/ADBCard-1.0.3.msi
+##
+#      - name: Verify signature
+#        run: |
+#          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" verify /pa build/compose/binaries/main/msi/ADBCard-1.0.3.msi
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Grant execute permission for gradlew.bat
+        run: git update-index --chmod=+x gradlew.bat
+
+#      - name: Delete platform-tools.zip(was for mac)
+#        run: |
+#          $zipFilePath = "$env:GITHUB_WORKSPACE/src/main/resources/platform-tools.zip"
+#          Remove-Item -Path $zipFilePath -Force -ErrorAction SilentlyContinue
+#        shell: pwsh
+
+      - name: Build with Gradle
+        run: ./gradlew.bat build
+
+      - name: Package for Windows
+        run: ./gradlew.bat :packageDistributionForCurrentOS
+
+      - name: Publish to Private Repo
+        env:
+          PRIVATE_REPO_URL: https://github.com/rajumark/ADBCard-Releases.git
+          PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_PAT }}
+        run: |
+          $current_dir = Get-Location
+          Write-Output "Current directory: $PWD"
+          $file_path = "./build.gradle.kts"
+          $version_line = Select-String -Path $file_path -Pattern 'packageVersion = "(\d+\.\d+\.\d+)"'
+          if ($version_line -ne $null) {
+            $version = $version_line.Matches.Groups[1].Value
+            Write-Output "Current version: $version"
+            $msi_file_path = "$current_dir/build/compose/binaries/main/msi/ADBCard-$version.msi"
+            if (Test-Path $msi_file_path) {
+              Write-Output "MSI file path: $msi_file_path"
+              git clone https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
+              $directory_path = "ADBCard-Releases\windows"
+              if (Test-Path -Path $directory_path) {
+                Remove-Item -Path $directory_path -Recurse -Force
+                New-Item -Path "ADBCard-Releases" -Name "windows" -ItemType "directory" -Force
+                Write-Output "Directory deleted: $directory_path"
+              } else {
+                Write-Output "Directory not found: $directory_path"
+              }
+              $signtoolPath = (Get-Command signtool.exe).Source
+              $signtoolPath sign /f "codesign.pfx" /p "yourpassword" /tr "http://timestamp.digicert.com" /td SHA256 $msi_file_path
+              $msi_file_path_zip = "$current_dir/build/compose/binaries/main/msi/ADBCard-$version.zip"
+              $zip_password = "ADBCard"
+              Compress-Archive -Path $msi_file_path -DestinationPath $msi_file_path_zip
+              Copy-Item -Path $msi_file_path_zip -Destination ADBCard-Releases\windows\
+              cd ADBCard-Releases
+              git add .
+              git commit -m "Update MSI: $version"
+              git push https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
+            } else {
+              Write-Output "MSI file not found: $msi_file_path"
+            }
+          } else {
+            Write-Output "Version not found in $file_path"
+          }
