@@ -11,63 +11,64 @@
 [![Compose Desktop](https://img.shields.io/badge/Compose-Desktop-green.svg)](https://www.jetbrains.com/lp/compose-multiplatform/)
 [![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey.svg)]()
 
-[Download](#installation) • [Features](#features) • [Documentation](#documentation) • [Contributing](#contributing)
-
 </div>
 
-## 📋 Overview
+## 📋 Quick Overview
 
 Tidefish is a comprehensive Android Debug Bridge (ADB) GUI client built with Kotlin and Compose Desktop. It provides developers and power users with an intuitive interface to manage, debug, and interact with Android devices through a desktop application.
 
 ### 🎯 Key Benefits
-
 - **Device Management**: Connect and manage multiple Android devices simultaneously
-- **App Management**: View, install, uninstall, and manage applications
+- **App Management**: View, install, uninstall, and manage applications  
 - **Communication Analysis**: Access and analyze SMS/MMS messages and call logs
 - **File Management**: Browse and manage device files through an intuitive interface
 - **ADB Terminal**: Execute ADB commands directly from the GUI
 - **Cross-Platform**: Works on Windows, macOS, and Linux
 
-## ✨ Features
+---
 
-### 📱 Device Management
+## 📑 Navigation
+
+<details>
+<summary>📱 <strong>Features</strong></summary>
+
+### Device Management
 - **Device Discovery**: Automatically detect connected Android devices
 - **Device Information**: View detailed device specifications and status
 - **Multi-Device Support**: Manage multiple devices simultaneously
 - **Real-time Status**: Monitor device connection status in real-time
 
-### 📲 Application Management
+### Application Management
 - **App Listing**: View all installed applications with detailed information
 - **App Details**: Package name, version, permissions, and storage usage
 - **App Actions**: Uninstall, clear data, force stop applications
 - **Search & Filter**: Quickly find specific applications
 
-### 💬 Communication Analysis
+### Communication Analysis
 - **Message Management**: View and analyze SMS/MMS messages
 - **Conversation Threads**: Group messages by conversation
 - **Call Logs**: Access and analyze call history
 - **Search Functionality**: Search messages and calls by content or date
 
-### 📁 File Operations
+### File Operations
 - **File Browser**: Navigate device file system
 - **File Transfer**: Upload and download files between device and computer
 - **Directory Operations**: Create, rename, and delete directories
 
-### 🔧 Advanced Tools
+### Advanced Tools
 - **ADB Terminal**: Execute ADB commands with syntax highlighting
 - **Screen Capture**: Take screenshots of connected devices
 - **Logcat Viewer**: Monitor system and application logs
 - **Service Management**: View and control system services
 
-## 🚀 Installation
+</details>
+
+<details>
+<summary>🚀 <strong>Installation</strong></summary>
 
 ### Download Releases
 
-1. Visit the [Releases](https://github.com/your-repo/tidefish/releases) page
-2. Download the appropriate package for your operating system:
-   - **Windows**: `.msi` installer
-   - **macOS**: `.dmg` disk image
-   - **Linux**: `.deb` package
+Releases will be available soon. Currently, you can build from source using the instructions in the Development section.
 
 ### System Requirements
 
@@ -77,12 +78,15 @@ Tidefish is a comprehensive Android Debug Bridge (ADB) GUI client built with Kot
 
 ### Quick Start
 
-1. Install Tidefish using the appropriate package for your system
+1. Build Tidefish from source using the instructions in the Development section
 2. Launch the application
 3. Connect your Android device via USB with USB debugging enabled
 4. Tidefish will automatically detect and display your device
 
-## 📖 Usage
+</details>
+
+<details>
+<summary>📖 <strong>Usage Guide</strong></summary>
 
 ### Basic Device Connection
 
@@ -116,9 +120,12 @@ The application is organized into several main screens:
 | `Ctrl+F` | Search current view |
 | `F5` | Refresh current screen |
 
-## 🏗️ Architecture
+</details>
 
-Tidefish is built using modern desktop application architecture:
+<details>
+<summary>🏗️ <strong>Architecture</strong></summary>
+
+### Technology Stack
 
 - **Framework**: Kotlin with Compose Desktop
 - **Architecture**: MVC pattern with separate controllers, models, and views
@@ -133,7 +140,10 @@ Tidefish is built using modern desktop application architecture:
 - **UI Components**: Reusable Compose UI components
 - **Data Models**: Structured data representation for device information
 
-## 🔧 Development
+</details>
+
+<details>
+<summary>🔧 <strong>Development</strong></summary>
 
 ### Prerequisites
 
@@ -165,66 +175,18 @@ cd tidefish
 ./gradlew createDistributableForCurrentOS
 ```
 
-## 📚 Documentation
+</details>
 
-- [Feature Documentation](documentation/features/) - Detailed feature descriptions
-- [API Reference](docs/api/) - ADB command reference
-- [Troubleshooting](docs/troubleshooting.md) - Common issues and solutions
+---
 
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Workflow
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-### Code Style
-
-- Follow Kotlin coding conventions
-- Use meaningful variable and function names
-- Add documentation for public APIs
-- Include unit tests for new features
-
-## 🐛 Bug Reports
-
-If you encounter a bug, please:
-
-1. Check existing [Issues](https://github.com/your-repo/tidefish/issues)
-2. Create a new issue with:
-   - Detailed description of the problem
-   - Steps to reproduce
-   - System information (OS, Java version, etc.)
-   - Relevant logs or screenshots
-
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🙏 Acknowledgments
-
-- [Kotlin](https://kotlinlang.org/) - The programming language
-- [Compose Desktop](https://www.jetbrains.com/lp/compose-multiplatform/) - UI framework
-- [FlatLaf](https://www.formdev.com/flatlaf/) - Look and Feel
-- [Android Debug Bridge](https://developer.android.com/studio/command-line/adb) - Core device communication
-
-## 📞 Support
-
-- **Documentation**: [Wiki](https://github.com/your-repo/tidefish/wiki)
-- **Issues**: [GitHub Issues](https://github.com/your-repo/tidefish/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-repo/tidefish/discussions)
-- **Email**: support@tidefish.app
 
 ---
 
 <div align="center">
 
-**Made with ❤️ by the Tidefish Team**
-
-[Website](https://tidefish.app) • [Twitter](https://twitter.com/tidefishapp) • [Discord](https://discord.gg/tidefish)
+**Made with by the Tidefish Team**
 
 </div>
