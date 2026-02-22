@@ -26,7 +26,33 @@ Tidefish is a comprehensive Android Debug Bridge (ADB) GUI client built with Kot
 
 ---
 
-## 📑 Navigation
+## � Screenshots
+
+<div align="center">
+
+### Main Application Screens
+
+| Apps Screen | Calendar Screen | Call Logs Screen |
+|-------------|-----------------|------------------|
+| ![Apps Screen](screenshots/ss_apps.png) | ![Calendar Screen](screenshots/ss_calender.png) | ![Call Logs Screen](screenshots/ss_calllogs.png) |
+
+| Contacts Screen | Lifecycle Screen | Media Screen |
+|-----------------|------------------|--------------|
+| ![Contacts Screen](screenshots/ss_contacts.png) | ![Lifecycle Screen](screenshots/ss_lifecycle.png) | ![Media Screen](screenshots/ss_media.png) |
+
+| Messages Screen | Properties Screen | Services Screen |
+|------------------|-------------------|-----------------|
+| ![Messages Screen](screenshots/ss_messages.png) | ![Properties Screen](screenshots/ss_properties.png) | ![Services Screen](screenshots/ss_services.png) |
+
+| Settings Screen | Terminal Screen |
+|-----------------|-----------------|
+| ![Settings Screen](screenshots/ss_settings.png) | ![Terminal Screen](screenshots/ss_terminal.png) |
+
+</div>
+
+---
+
+## �📑 Navigation
 
 <details>
 <summary>📱 <strong>Features</strong></summary>
