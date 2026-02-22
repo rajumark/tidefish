@@ -21,6 +21,7 @@ fun getNavigationMenuHelper(onNavigationClick: (TypeOfScreens) -> Unit): JMenu {
         navRadioItem("Lifecycle", TypeOfScreens.lifecycle, buttonGroup, onNavigationClick)
         navRadioItem("Properties", TypeOfScreens.properties, buttonGroup, onNavigationClick)
         navRadioItem("ADB Terminal", TypeOfScreens.adbterminal, buttonGroup, onNavigationClick)
+        navRadioItem("Notifications", TypeOfScreens.notifications, buttonGroup, onNavigationClick)
         addSeparator()
 //        navRadioItem("Feedback", TypeOfScreens.feedback, buttonGroup, onNavigationClick)
     }

@@ -14,6 +14,7 @@ enum class TypeOfScreens(val title: String) {
     calender("Calendar"),
     properties("Properties"),
     adbterminal("Terminal"),
+    notifications("Notifications"),
 }
 
 
@@ -30,4 +31,5 @@ val sideMenuList = listOf(
     TypeOfScreens.calender,
     TypeOfScreens.properties,
     TypeOfScreens.adbterminal,
+    TypeOfScreens.notifications,
 )

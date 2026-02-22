@@ -103,6 +103,7 @@ jobs:
           version=$(grep -oE 'packageVersion = "[0-9]+\.[0-9]+\.[0-9]+"' $file_path | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "Current version: $version"
+        shell: bash
 
       - name: Sign MSI (Windows)
         if: runner.os == 'Windows'
@@ -126,7 +127,18 @@ jobs:
           if [ "${{ runner.os }}" = "Windows" ]; then
             artifact_path="${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.zip"
           else
-            artifact_path="${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
+            # dynamically detect the file
+            case "${{ matrix.artifact_extension }}" in
+              "deb")
+                artifact_path=$(find "${{ github.workspace }}/${{ matrix.artifact_path }}" -type f -name "*.deb" | head -n 1)
+                ;;
+              "dmg")
+                artifact_path=$(find "${{ github.workspace }}/${{ matrix.artifact_path }}" -type f -name "*.dmg" | head -n 1)
+                ;;
+              *)
+                artifact_path="${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
+                ;;
+            esac
           fi
           
           if [ -f "$artifact_path" ]; then
@@ -134,6 +146,8 @@ jobs:
             echo "Found artifact: $artifact_path"
           else
             echo "Artifact not found at: $artifact_path"
+            echo "Contents of artifact directory:"
+            ls -la "${{ github.workspace }}/${{ matrix.artifact_path }}" || echo "Directory not found"
             exit 1
           fi
         shell: bash
@@ -144,6 +158,26 @@ jobs:
           name: ${{ matrix.name }}-${{ steps.version.outputs.version }}
           path: ${{ steps.artifact.outputs.artifact_path }}
 
+  create-release:
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, '#go')
+    steps:
+      - name: Extract version
+        id: version
+        run: |
+          file_path="./build.gradle.kts"
+          version=$(grep -oE 'packageVersion = "[0-9]+\.[0-9]+\.[0-9]+"' $file_path | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "Current version: $version"
+        shell: bash
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-${{ steps.version.outputs.version }}"
+          merge-multiple: true
+
       - name: Create Release
         uses: softprops/action-gh-release@v2
         env:
@@ -153,4 +187,5 @@ jobs:
           name: Tidefish v${{ steps.version.outputs.version }}
           draft: false
           prerelease: false
-          files: ${{ steps.artifact.outputs.artifact_path }}
+          files: |
+            *

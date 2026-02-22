@@ -31,6 +31,7 @@ import screens.messages.JMessagesController
 import screens.messages.JMessagesModel
 import screens.messages.JMessagesView
 import screens.nodevice.NoDeviceView
+import screens.notifications.JNotificationsView
 import screens.packages.PackagesListController
 import screens.packages.PackagesListModel
 import screens.packages.PackagesListView2
@@ -101,6 +102,8 @@ class RightSideContentMain: JPanel() {
     private val adbTerminalView by lazy { ADBTerminalView() }
     private val adbTerminalController by lazy { ADBTerminalController(adbTerminalModel, adbTerminalView) }
 
+    private val notificationsView by lazy { JNotificationsView() }
+
 
     private val cardLayout = CardLayout()
     private val bodyPanel = JPanel(cardLayout)
@@ -125,6 +128,7 @@ class RightSideContentMain: JPanel() {
         bodyPanel.add(jCalendarView, TypeOfScreens.calender.name)
         bodyPanel.add(devicePropertiesView, TypeOfScreens.properties.name)
         bodyPanel.add(adbTerminalView, TypeOfScreens.adbterminal.name)
+        bodyPanel.add(notificationsView, TypeOfScreens.notifications.name)
 
         // Add components to the frame
         add(bodyPanel, BorderLayout.CENTER)
