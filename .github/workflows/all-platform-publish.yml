@@ -96,11 +96,10 @@ jobs:
           fi
         shell: bash
 
-      - name: Extract version
+      - name: Get version from Gradle
         id: version
         run: |
-          file_path="./build.gradle.kts"
-          version=$(grep -oE 'version = "1\.0\.[0-9]+"' $file_path | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          version=$(./gradlew properties -q | grep "version:" | awk '{print $2}')
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "Current version: $version"
         shell: bash
@@ -163,11 +162,10 @@ jobs:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, '#go')
     steps:
-      - name: Extract version
+      - name: Get version from Gradle
         id: version
         run: |
-          file_path="./build.gradle.kts"
-          version=$(grep -oE 'version = "1\.0\.[0-9]+"' $file_path | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
+          version=$(./gradlew properties -q | grep "version:" | awk '{print $2}')
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "Current version: $version"
         shell: bash

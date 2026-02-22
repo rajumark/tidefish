@@ -3,316 +3,411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tidefish - Android Development Tool</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Tidefish</title>
     <style>
-        :root {
-            --md-sys-color-primary: #6750A4;
-            --md-sys-color-on-primary: #FFFFFF;
-            --md-sys-color-primary-container: #EADDFF;
-            --md-sys-color-on-primary-container: #21005D;
-            --md-sys-color-secondary: #625B71;
-            --md-sys-color-on-secondary: #FFFFFF;
-            --md-sys-color-secondary-container: #E8DEF8;
-            --md-sys-color-on-secondary-container: #1D192B;
-            --md-sys-color-tertiary: #7D5260;
-            --md-sys-color-on-tertiary: #FFFFFF;
-            --md-sys-color-tertiary-container: #FFD8E4;
-            --md-sys-color-on-tertiary-container: #31111D;
-            --md-sys-color-surface: #FEF7FF;
-            --md-sys-color-on-surface: #1D1B20;
-            --md-sys-color-surface-variant: #E7E0EC;
-            --md-sys-color-on-surface-variant: #49454F;
-            --md-sys-color-outline: #79747E;
-            --md-sys-color-outline-variant: #CAC4D0;
-            --md-sys-color-shadow: #000000;
-            --md-sys-color-scrim: #000000;
-            --md-sys-color-inverse-surface: #322F33;
-            --md-sys-color-inverse-on-surface: #F5EFF7;
-            --md-sys-color-inverse-primary: #D0BCFF;
-            --md-sys-color-surface-dim: #DDD8DD;
-            --md-sys-color-surface-bright: #FEF7FF;
-            --md-sys-color-surface-container-lowest: #FFFFFF;
-            --md-sys-color-surface-container-low: #F7F2FA;
-            --md-sys-color-surface-container: #F1ECF4;
-            --md-sys-color-surface-container-high: #ECE6F0;
-            --md-sys-color-surface-container-highest: #E6E0E9;
-            
-            /* Shape tokens */
-            --md-sys-shape-corner-none: 0px;
-            --md-sys-shape-corner-extra-small: 4px;
-            --md-sys-shape-corner-small: 8px;
-            --md-sys-shape-corner-medium: 12px;
-            --md-sys-shape-corner-large: 16px;
-            --md-sys-shape-corner-extra-large: 28px;
-            
-            /* Typography scale */
-            --md-sys-typescale-headline-large-font-family: 'Roboto', sans-serif;
-            --md-sys-typescale-headline-large-font-weight: 400;
-            --md-sys-typescale-headline-large-font-size: 32px;
-            --md-sys-typescale-headline-large-line-height: 40px;
-            --md-sys-typescale-headline-large-letter-spacing: 0px;
-            
-            --md-sys-typescale-headline-medium-font-family: 'Roboto', sans-serif;
-            --md-sys-typescale-headline-medium-font-weight: 400;
-            --md-sys-typescale-headline-medium-font-size: 28px;
-            --md-sys-typescale-headline-medium-line-height: 36px;
-            --md-sys-typescale-headline-medium-letter-spacing: 0px;
-            
-            --md-sys-typescale-body-large-font-family: 'Roboto', sans-serif;
-            --md-sys-typescale-body-large-font-weight: 400;
-            --md-sys-typescale-body-large-font-size: 16px;
-            --md-sys-typescale-body-large-line-height: 24px;
-            --md-sys-typescale-body-large-letter-spacing: 0.5px;
-            
-            --md-sys-typescale-body-medium-font-family: 'Roboto', sans-serif;
-            --md-sys-typescale-body-medium-font-weight: 400;
-            --md-sys-typescale-body-medium-font-size: 14px;
-            --md-sys-typescale-body-medium-line-height: 20px;
-            --md-sys-typescale-body-medium-letter-spacing: 0.25px;
-            
-            --md-sys-typescale-label-large-font-family: 'Roboto', sans-serif;
-            --md-sys-typescale-label-large-font-weight: 500;
-            --md-sys-typescale-label-large-font-size: 14px;
-            --md-sys-typescale-label-large-line-height: 20px;
-            --md-sys-typescale-label-large-letter-spacing: 0.1px;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --sf-pro-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --sf-pro-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            
+            --color-primary: #000000;
+            --color-secondary: #86868b;
+            --color-tertiary: #f5f5f7;
+            --color-background: #ffffff;
+            --color-button: #0071e3;
+            --color-button-hover: #0077ed;
+            
+            --font-size-hero: clamp(48px, 8vw, 96px);
+            --font-size-subtitle: clamp(19px, 2.5vw, 28px);
+            --font-size-body: 17px;
+            --font-size-caption: 14px;
+            
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 24px;
+            --spacing-lg: 32px;
+            --spacing-xl: 48px;
+            --spacing-2xl: 64px;
+            --spacing-3xl: 96px;
+            
+            --border-radius-sm: 6px;
+            --border-radius-md: 12px;
+            --border-radius-lg: 18px;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
         body {
-            font-family: var(--md-sys-typescale-body-large-font-family);
-            font-size: var(--md-sys-typescale-body-large-font-size);
-            line-height: var(--md-sys-typescale-body-large-line-height);
-            letter-spacing: var(--md-sys-typescale-body-large-letter-spacing);
-            background-color: var(--md-sys-color-surface);
-            color: var(--md-sys-color-on-surface);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            font-family: var(--sf-pro-text);
+            font-size: var(--font-size-body);
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+            color: var(--color-primary);
+            background-color: var(--color-background);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Header */
-        header {
-            background-color: var(--md-sys-color-surface-container);
-            border-bottom: 1px solid var(--md-sys-color-outline-variant);
-            padding: 16px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
         }
 
-        .branding {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .logo {
-            width: 48px;
-            height: 48px;
-            background-color: var(--md-sys-color-primary);
-            border-radius: var(--md-sys-shape-corner-medium);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--md-sys-color-on-primary);
-            font-weight: 500;
-            font-size: 20px;
-        }
-
-        .brand-text h1 {
-            font-family: var(--md-sys-typescale-headline-medium-font-family);
-            font-size: var(--md-sys-typescale-headline-medium-font-size);
-            font-weight: var(--md-sys-typescale-headline-medium-font-weight);
-            line-height: var(--md-sys-typescale-headline-medium-line-height);
-            color: var(--md-sys-color-on-surface);
-            margin: 0;
-        }
-
-        .brand-text p {
-            font-family: var(--md-sys-typescale-body-medium-font-family);
-            font-size: var(--md-sys-typescale-body-medium-font-size);
-            color: var(--md-sys-color-on-surface-variant);
-            margin: 4px 0 0 0;
-        }
-
-        /* Main content */
-        main {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 48px 24px;
-            text-align: center;
-        }
-
-        .hero-section {
-            max-width: 800px;
-            width: 100%;
-        }
-
-        .hero-title {
-            font-family: var(--md-sys-typescale-headline-large-font-family);
-            font-size: var(--md-sys-typescale-headline-large-font-size);
-            font-weight: var(--md-sys-typescale-headline-large-font-weight);
-            line-height: var(--md-sys-typescale-headline-large-line-height);
-            color: var(--md-sys-color-primary);
-            margin-bottom: 24px;
-        }
-
-        .promotion-line {
-            font-family: var(--md-sys-typescale-body-large-font-family);
-            font-size: var(--md-sys-typescale-body-large-font-size);
-            font-weight: 500;
-            color: var(--md-sys-color-secondary);
-            margin-bottom: 48px;
-            font-style: italic;
-        }
-
-        /* Download button - Material Design 3 FAB */
-        .download-button {
-            background-color: var(--md-sys-color-primary);
-            color: var(--md-sys-color-on-primary);
-            border: none;
-            border-radius: var(--md-sys-shape-corner-large);
-            padding: 16px 32px;
-            font-family: var(--md-sys-typescale-label-large-font-family);
-            font-size: var(--md-sys-typescale-label-large-font-size);
-            font-weight: var(--md-sys-typescale-label-large-font-weight);
-            line-height: var(--md-sys-typescale-label-large-line-height);
-            letter-spacing: var(--md-sys-typescale-label-large-letter-spacing);
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-            text-decoration: none;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-button:hover {
-            background-color: var(--md-sys-color-inverse-primary);
-            color: var(--md-sys-color-primary);
-            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-            transform: translateY(-1px);
-        }
-
-        .download-button:active {
-            transform: translateY(0);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-        }
-
-        .download-button .material-icons {
-            font-size: 20px;
-        }
-
-        /* State layer */
-        .download-button::before {
-            content: '';
-            position: absolute;
+        /* Navigation */
+        nav {
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            bottom: 0;
-            background-color: currentColor;
-            opacity: 0;
-            transition: opacity 0.2s cubic-bezier(0.2, 0, 0, 1);
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            transition: var(--transition-smooth);
         }
 
-        .download-button:hover::before {
-            opacity: 0.08;
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: var(--spacing-md);
+            padding-right: var(--spacing-md);
         }
 
-        .download-button:focus::before {
-            opacity: 0.12;
+        .logo {
+            font-family: var(--sf-pro-display);
+            font-size: 21px;
+            font-weight: 600;
+            letter-spacing: -0.016em;
+            color: var(--color-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-xs);
         }
 
-        /* Responsive design */
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, #0071e3, #5856d6);
+            border-radius: var(--border-radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .download-nav {
+            font-family: var(--sf-pro-text);
+            font-size: var(--font-size-caption);
+            font-weight: 400;
+            color: var(--color-button);
+            text-decoration: none;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border-radius: var(--border-radius-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .download-nav:hover {
+            background-color: rgba(0, 113, 227, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: var(--spacing-3xl) var(--spacing-md);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-hero);
+            font-weight: 700;
+            letter-spacing: -0.033em;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-md);
+            background: linear-gradient(180deg, #1d1d1f 0%, #86868b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-family: var(--sf-pro-display);
+            font-size: var(--font-size-subtitle);
+            font-weight: 400;
+            letter-spacing: 0.004em;
+            line-height: 1.3;
+            color: var(--color-secondary);
+            margin-bottom: var(--spacing-2xl);
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .tagline {
+            font-size: var(--font-size-body);
+            font-weight: 500;
+            color: var(--color-secondary);
+            margin-bottom: var(--spacing-xl);
+            font-style: italic;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--spacing-xs);
+            font-family: var(--sf-pro-text);
+            font-size: var(--font-size-body);
+            font-weight: 400;
+            color: white;
+            background-color: var(--color-button);
+            text-decoration: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            transition: var(--transition-smooth);
+            animation: fadeInUp 1s ease-out 0.6s both;
+            box-shadow: 0 4px 14px 0 rgba(0, 118, 255, 0.39);
+        }
+
+        .cta-button:hover {
+            background-color: var(--color-button-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(0, 118, 255, 0.45);
+        }
+
+        .cta-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 8px 0 rgba(0, 118, 255, 0.3);
+        }
+
+        /* Features Section */
+        .features {
+            padding: var(--spacing-3xl) 0;
+            background-color: var(--color-tertiary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: var(--spacing-lg);
+            background-color: var(--color-background);
+            border-radius: var(--border-radius-lg);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #0071e3, #5856d6);
+            border-radius: var(--border-radius-md);
+            margin: 0 auto var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .feature-title {
+            font-family: var(--sf-pro-display);
+            font-size: 19px;
+            font-weight: 600;
+            letter-spacing: -0.016em;
+            margin-bottom: var(--spacing-sm);
+            color: var(--color-primary);
+        }
+
+        .feature-description {
+            font-size: var(--font-size-body);
+            color: var(--color-secondary);
+            line-height: 1.5;
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--spacing-xl) 0;
+            text-align: center;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            background-color: var(--color-background);
+        }
+
+        .footer-content {
+            color: var(--color-secondary);
+            font-size: var(--font-size-caption);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
-            header {
-                padding: 12px 16px;
+            .nav-container {
+                padding: var(--spacing-xs) var(--spacing-md);
             }
 
-            .branding {
-                gap: 12px;
-            }
-
-            .logo {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-            }
-
-            .brand-text h1 {
-                font-size: 24px;
-                line-height: 32px;
-            }
-
-            main {
-                padding: 32px 16px;
+            .hero {
+                padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-xl);
             }
 
             .hero-title {
-                font-size: 28px;
-                line-height: 36px;
+                margin-bottom: var(--spacing-sm);
             }
 
-            .download-button {
-                padding: 14px 28px;
+            .hero-subtitle {
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .tagline {
+                margin-bottom: var(--spacing-lg);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+            }
+
+            .cta-button {
+                padding: var(--spacing-sm) var(--spacing-md);
             }
         }
 
         @media (max-width: 480px) {
-            .brand-text p {
+            .logo span {
                 display: none;
             }
 
-            .hero-title {
-                font-size: 24px;
-                line-height: 32px;
+            .download-nav {
+                font-size: 12px;
+                padding: 6px 10px;
             }
 
-            .promotion-line {
-                font-size: 14px;
-                margin-bottom: 32px;
+            .hero {
+                padding: var(--spacing-xl) var(--spacing-sm) var(--spacing-lg);
             }
         }
+
+        /* Scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        .hero-content > * {
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .hero-title { animation-delay: 0.1s; }
+        .hero-subtitle { animation-delay: 0.3s; }
+        .tagline { animation-delay: 0.5s; }
+        .cta-button { animation-delay: 0.7s; }
     </style>
 </head>
 <body>
-    <header>
-        <div class="branding">
-            <div class="logo">T</div>
-            <div class="brand-text">
-                <h1>Tidefish</h1>
-                <p>Android Development Tool</p>
-            </div>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">T</div>
+                <span>Tidefish</span>
+            </a>
+            <a href="https://github.com/rajumark/tidefish/releases" class="download-nav" target="_blank" rel="noopener noreferrer">
+                Download
+            </a>
         </div>
-        <a href="https://github.com/rajumark/tidefish/releases" class="download-button" target="_blank" rel="noopener noreferrer">
-            <span class="material-icons">download</span>
-            Download
-        </a>
-    </header>
+    </nav>
 
-    <main>
-        <section class="hero-section">
-            <h2 class="hero-title">Tidefish</h2>
-            <p class="promotion-line">By an Android Dev. For Android Devs.</p>
-            <a href="https://github.com/rajumark/tidefish/releases" class="download-button" target="_blank" rel="noopener noreferrer">
-                <span class="material-icons">download</span>
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Tidefish</h1>
+            <p class="hero-subtitle">The Android development tool you've been waiting for</p>
+            <p class="tagline">By an Android Dev. For Android Devs.</p>
+            <a href="https://github.com/rajumark/tidefish/releases" class="cta-button" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
                 Download Now
             </a>
-        </section>
-    </main>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3 class="feature-title">Lightning Fast</h3>
+                    <p class="feature-description">Optimized performance for seamless Android development workflow</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title">Developer Focused</h3>
+                    <p class="feature-description">Built by developers, for developers with real-world needs in mind</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛠️</div>
+                    <h3 class="feature-title">Powerful Tools</h3>
+                    <p class="feature-description">Comprehensive toolkit to enhance your Android development experience</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 Tidefish. Crafted with precision for Android developers.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>

@@ -8,21 +8,7 @@ plugins {
 }
 
 group = "com.tidefish.app"
-version = "1.0.${getCommitCount()}"
-
-fun getCommitCount(): String {
-    return "git rev-list --count HEAD".runCommand()
-}
-
-fun String.runCommand(): String {
-    return ProcessBuilder(split(" "))
-        .redirectOutput(ProcessBuilder.Redirect.PIPE)
-        .start()
-        .inputStream
-        .bufferedReader()
-        .readText()
-        .trim()
-}
+version = "1.0.${System.currentTimeMillis() / 1000}"
 
 repositories {
     mavenCentral()
