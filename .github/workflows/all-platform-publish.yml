@@ -79,18 +79,18 @@ jobs:
       - name: Build with Gradle
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
-            ./gradlew.bat build
+            ./gradlew.bat build -Pversion=${{ needs.generate-version.outputs.version }}
           else
-            ./gradlew build
+            ./gradlew build -Pversion=${{ needs.generate-version.outputs.version }}
           fi
         shell: bash
 
       - name: Package for current OS
         run: |
           if [ "${{ runner.os }}" = "Windows" ]; then
-            ./gradlew.bat :packageDistributionForCurrentOS
+            ./gradlew.bat :packageDistributionForCurrentOS -Pversion=${{ needs.generate-version.outputs.version }}
           else
-            ./gradlew :packageDistributionForCurrentOS
+            ./gradlew :packageDistributionForCurrentOS -Pversion=${{ needs.generate-version.outputs.version }}
           fi
         shell: bash
 
