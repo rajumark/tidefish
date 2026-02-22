@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tidefish - Android Development Tool</title>
-    <meta name="description" content="Tidefish is a comprehensive Android development tool built by developers, for developers. Streamline your debugging workflow with device management, ADB integration, and real-time monitoring.">
-    <meta name="keywords" content="Android development tool, ADB integration, device management, Android debugging, app testing, Android developer tools, Tidefish">
+    <title>Tidefish - Android Device Management Tool</title>
+    <meta name="description" content="Simple. Fast. Plug & Play. Android device management tool for developers.">
     <style>
         * {
             margin: 0;
@@ -14,643 +13,531 @@
         }
 
         :root {
-            --sf-pro-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            --sf-pro-text: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", Helvetica, Arial, sans-serif;
-            
-            --color-primary: #000000;
-            --color-secondary: #86868b;
-            --color-tertiary: #f5f5f7;
-            --color-background: #ffffff;
-            --color-button: #0071e3;
-            --color-button-hover: #0077ed;
-            
-            --font-size-hero: clamp(48px, 8vw, 96px);
-            --font-size-subtitle: clamp(19px, 2.5vw, 28px);
-            --font-size-body: 17px;
-            --font-size-caption: 14px;
-            
-            --spacing-xs: 8px;
-            --spacing-sm: 16px;
-            --spacing-md: 24px;
-            --spacing-lg: 32px;
-            --spacing-xl: 48px;
-            --spacing-2xl: 64px;
-            --spacing-3xl: 96px;
-            
-            --border-radius-sm: 6px;
-            --border-radius-md: 12px;
-            --border-radius-lg: 18px;
-            
-            --transition-smooth: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f8f8;
+            --text-primary: #000000;
+            --text-secondary: #333333;
+            --text-muted: #666666;
+            --border: #e0e0e0;
+            --hover-bg: #f0f0f0;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg-primary: #000000;
+                --bg-secondary: #1a1a1a;
+                --text-primary: #ffffff;
+                --text-secondary: #cccccc;
+                --text-muted: #999999;
+                --border: #333333;
+                --hover-bg: #2a2a2a;
+            }
         }
 
         body {
-            font-family: var(--sf-pro-text);
-            font-size: var(--font-size-body);
-            line-height: 1.47059;
-            font-weight: 400;
-            letter-spacing: -0.022em;
-            color: var(--color-primary);
-            background-color: var(--color-background);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            transition: all 0.3s ease;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 var(--spacing-md);
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: saturate(180%) blur(20px);
-            -webkit-backdrop-filter: saturate(180%) blur(20px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-            transition: var(--transition-smooth);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: var(--spacing-sm) 0;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-left: var(--spacing-md);
-            padding-right: var(--spacing-md);
-        }
-
-        .logo {
-            font-family: var(--sf-pro-display);
-            font-size: 21px;
-            font-weight: 600;
-            letter-spacing: -0.016em;
-            color: var(--color-primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-        }
-
-        .logo-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: var(--border-radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: none;
-        }
-
-        .logo-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            border-radius: var(--border-radius-sm);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: var(--spacing-lg);
-            align-items: center;
-        }
-
-        .nav-link {
-            font-family: var(--sf-pro-text);
-            font-size: var(--font-size-caption);
-            font-weight: 400;
-            color: var(--color-secondary);
-            text-decoration: none;
-            padding: var(--spacing-xs) var(--spacing-sm);
-            border-radius: var(--border-radius-sm);
-            transition: var(--transition-smooth);
-        }
-
-        .nav-link:hover {
-            color: var(--color-button);
-            background-color: rgba(0, 113, 227, 0.1);
+            padding: 0 20px;
         }
 
         /* Hero Section */
         .hero {
-            min-height: 60vh;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: var(--spacing-xl) var(--spacing-md) var(--spacing-lg);
-            position: relative;
+            padding: 2rem 0;
         }
 
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .hero-cta {
-            margin-top: var(--spacing-xl);
-        }
-
-        .cta-button-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-            font-family: var(--sf-pro-text);
-            font-size: var(--font-size-body);
-            font-weight: 600;
-            color: white;
-            background: linear-gradient(135deg, var(--color-button), var(--color-accent));
-            text-decoration: none;
-            padding: var(--spacing-md) var(--spacing-xl);
-            border-radius: var(--border-radius-lg);
-            transition: var(--transition-smooth);
-            box-shadow: 0 4px 20px rgba(0, 113, 227, 0.3);
-        }
-
-        .cta-button-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(0, 113, 227, 0.4);
-            background: linear-gradient(135deg, var(--color-button-hover), var(--color-accent));
-        }
-
-        .hero-title {
-            font-family: var(--sf-pro-display);
-            font-size: clamp(36px, 6vw, 56px);
-            font-weight: 700;
-            letter-spacing: -0.033em;
-            line-height: 1.1;
-            margin-bottom: var(--spacing-md);
-            background: linear-gradient(180deg, #1d1d1f 0%, #86868b 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero-subtitle {
-            font-family: var(--sf-pro-display);
-            font-size: var(--font-size-subtitle);
-            font-weight: 400;
-            letter-spacing: 0.004em;
-            line-height: 1.3;
-            color: var(--color-secondary);
-            margin-bottom: var(--spacing-2xl);
-            animation: fadeInUp 1s ease-out 0.2s both;
-        }
-
-        .tagline {
-            font-size: var(--font-size-body);
-            font-weight: 500;
-            color: var(--color-secondary);
-            margin-bottom: var(--spacing-xl);
-            font-style: italic;
-            opacity: 0.8;
-            animation: fadeInUp 1s ease-out 0.4s both;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: var(--spacing-xs);
-            font-family: var(--sf-pro-text);
-            font-size: var(--font-size-body);
-            font-weight: 400;
-            color: white;
-            background-color: var(--color-button);
-            text-decoration: none;
-            padding: var(--spacing-sm) var(--spacing-lg);
-            border-radius: var(--border-radius-lg);
-            transition: var(--transition-smooth);
-            animation: fadeInUp 1s ease-out 0.6s both;
-            box-shadow: 0 4px 14px 0 rgba(0, 118, 255, 0.39);
-        }
-
-        .cta-button:hover {
-            background-color: var(--color-button-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px 0 rgba(0, 118, 255, 0.45);
-        }
-
-        .cta-button:active {
-            transform: translateY(0);
-            box-shadow: 0 2px 8px 0 rgba(0, 118, 255, 0.3);
-        }
-
-        /* Features Section */
-        .features {
-            padding: var(--spacing-xl) 0;
-            background-color: var(--color-tertiary);
-        }
-
-        .comprehensive-features {
-            padding: var(--spacing-xl) 0;
-            background-color: var(--color-background);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .section-title {
-            font-family: var(--sf-pro-display);
-            font-size: var(--font-size-title);
-            font-weight: 600;
-            letter-spacing: -0.022em;
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-primary);
-        }
-
-        .section-subtitle {
-            font-size: var(--font-size-body);
-            color: var(--color-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .category-section {
-            margin-bottom: var(--spacing-xl);
-        }
-
-        .category-header {
-            text-align: center;
-            margin-bottom: var(--spacing-lg);
-        }
-
-        .category-title {
-            font-family: var(--sf-pro-display);
-            font-size: var(--font-size-subtitle);
-            font-weight: 600;
-            letter-spacing: -0.016em;
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-primary);
-        }
-
-        .category-description {
-            font-size: var(--font-size-body);
-            color: var(--color-secondary);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--spacing-md);
-        }
-
-        .feature-card {
-            background-color: var(--color-background);
-            border: 1px solid var(--color-tertiary);
-            border-radius: var(--border-radius-lg);
-            padding: var(--spacing-md);
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .comprehensive-features .feature-card {
-            background-color: var(--color-background);
-            border: 1px solid var(--color-tertiary);
-        }
-
-        .feature-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--color-button), var(--color-accent));
-            transform: scaleX(0);
-            transition: var(--transition-smooth);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-lg);
-            border-color: var(--color-button);
-        }
-
-        .feature-card:hover::before {
-            transform: scaleX(1);
-        }
-
-        .feature-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--color-button), var(--color-accent));
-            border-radius: var(--border-radius-md);
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 2rem;
+            border: 3px solid var(--text-primary);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 24px;
-            margin-bottom: var(--spacing-md);
+            font-weight: bold;
+            font-size: 2rem;
+            transition: transform 0.3s ease;
         }
 
-        .feature-title {
-            font-family: var(--sf-pro-display);
-            font-size: var(--font-size-subtitle);
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: 2px solid var(--text-primary);
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
             font-weight: 600;
-            letter-spacing: -0.016em;
-            margin-bottom: var(--spacing-sm);
-            color: var(--color-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
         }
 
-        .comprehensive-features .feature-title {
-            font-size: var(--font-size-body);
+        .btn-primary {
+            background: var(--text-primary);
+            color: var(--bg-primary);
         }
 
-        .feature-description {
-            font-size: var(--font-size-body);
-            color: var(--color-secondary);
-            line-height: 1.5;
-            margin-bottom: var(--spacing-md);
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--text-primary);
         }
 
-        .feature-tags {
+        .btn:hover {
+            background: var(--hover-bg);
+        }
+
+        /* Promo Highlights */
+        .promo {
+            padding: 4rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .promo-item {
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .promo-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .promo-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .promo-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Features Tags */
+        .features {
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            font-weight: 800;
+        }
+
+        .tags-container {
             display: flex;
             flex-wrap: wrap;
-            gap: var(--spacing-xs);
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
         }
 
-        .feature-tag {
-            padding: 4px var(--spacing-sm);
-            font-size: var(--font-size-small);
-            font-weight: 500;
-            color: var(--color-button);
-            background-color: rgba(0, 113, 227, 0.1);
-            border-radius: var(--border-radius-sm);
+        .tag {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--text-primary);
+            border-radius: 25px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: transparent;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .tag:hover {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        .tag.active {
+            background: var(--text-primary);
+            color: var(--bg-primary);
+        }
+
+        /* Feature Cards */
+        .feature-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        .feature-card.show {
+            display: block;
+        }
+
+        .feature-card:hover {
+            border-color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .feature-meta {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Docs CTA */
+        .docs-cta {
+            padding: 4rem 0;
+            background: var(--bg-secondary);
+            text-align: center;
         }
 
         /* Footer */
         footer {
-            padding: var(--spacing-lg) 0;
+            padding: 3rem 0;
             text-align: center;
-            border-top: 1px solid rgba(0, 0, 0, 0.1);
-            background-color: var(--color-background);
+            border-top: 1px solid var(--border);
         }
 
-        .footer-content {
-            color: var(--color-secondary);
-            font-size: var(--font-size-caption);
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
         }
 
-        /* Responsive Design */
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .nav-container {
-                padding: var(--spacing-xs) var(--spacing-md);
-            }
-
-            .hero {
-                padding: var(--spacing-2xl) var(--spacing-md) var(--spacing-xl);
-            }
-
-            .hero-title {
-                margin-bottom: var(--spacing-sm);
-            }
-
-            .hero-subtitle {
-                margin-bottom: var(--spacing-lg);
+            h1 {
+                font-size: 2.5rem;
             }
 
             .tagline {
-                margin-bottom: var(--spacing-lg);
+                font-size: 1.1rem;
             }
 
-            .features-grid {
-                grid-template-columns: 1fr;
-                gap: var(--spacing-lg);
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
             }
 
-            .cta-button {
-                padding: var(--spacing-sm) var(--spacing-md);
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo span {
-                display: none;
-            }
-
-            .download-nav {
-                font-size: 12px;
-                padding: 6px 10px;
-            }
-
-            .hero {
-                padding: var(--spacing-xl) var(--spacing-sm) var(--spacing-lg);
+            .btn {
+                width: 200px;
+                text-align: center;
             }
         }
-
-        /* Scroll behavior */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Loading animation */
-        .hero-content > * {
-            opacity: 0;
-            animation: fadeInUp 1s ease-out forwards;
-        }
-
-        .hero-title { animation-delay: 0.1s; }
-        .hero-subtitle { animation-delay: 0.3s; }
-        .tagline { animation-delay: 0.5s; }
-        .cta-button { animation-delay: 0.7s; }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <img src="logo.png" alt="Tidefish Logo">
-                </div>
-                <span>Tidefish</span>
-            </a>
-            <div class="nav-links">
-                <a href="#features" class="nav-link">Features</a>
-                <a href="https://github.com/rajumark/tidefish/releases" class="nav-link" target="_blank">Download</a>
-            </div>
-        </div>
-    </nav>
-
+    <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">Tidefish</h1>
-            <p class="hero-subtitle">A comprehensive Android development tool built by developers, for developers</p>
-            <p class="tagline">Streamline your debugging workflow with device management and ADB integration</p>
-            <div class="hero-cta">
-                <a href="https://github.com/rajumark/tidefish/releases" class="cta-button-primary" target="_blank">
-                    <span>Download</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="features" id="features">
         <div class="container">
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">⚡</div>
-                    <h3 class="feature-title">Lightning Fast</h3>
-                    <p class="feature-description">Optimized performance for seamless Android development workflow</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🎯</div>
-                    <h3 class="feature-title">Developer Focused</h3>
-                    <p class="feature-description">Built by developers, for developers with real-world needs in mind</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🛠️</div>
-                    <h3 class="feature-title">Powerful Tools</h3>
-                    <p class="feature-description">Comprehensive toolkit to enhance your Android development experience</p>
-                </div>
+            <div class="logo">T</div>
+            <h1>Tidefish</h1>
+            <p class="tagline">Simple. Fast. Plug & Play.</p>
+            <div class="cta-buttons">
+                <a href="#download" class="btn btn-primary">Download Now</a>
+                <a href="https://github.com/rajumark/tidefish" class="btn">View on GitHub</a>
             </div>
         </div>
     </section>
 
-    <section class="comprehensive-features">
+    <!-- Promo Highlights -->
+    <section class="promo">
         <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Features</h2>
-                <p class="section-subtitle">Everything you need for Android development in one tool</p>
-            </div>
-
-            <!-- Device Management Category -->
-            <div class="category-section">
-                <div class="category-header">
-                    <h3 class="category-title">Device Management</h3>
-                    <p class="category-description">Manage your Android devices and applications efficiently</p>
+            <div class="promo-grid">
+                <div class="promo-item">
+                    <h3>✅ Open Source</h3>
+                    <p>Fully transparent code. Contribute or customize freely.</p>
                 </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">�</div>
-                        <h4 class="feature-title">Apps Management</h4>
-                        <p class="feature-description">Install, uninstall, and manage applications with detailed package information.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">⚙️</div>
-                        <h4 class="feature-title">Device Settings</h4>
-                        <p class="feature-description">Access and modify device settings including developer options.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📊</div>
-                        <h4 class="feature-title">Device Properties</h4>
-                        <p class="feature-description">View comprehensive device information including hardware and system properties.</p>
-                    </div>
+                <div class="promo-item">
+                    <h3>✅ Free Forever</h3>
+                    <p>No hidden costs or premium features. Always free.</p>
                 </div>
-            </div>
-
-            <!-- Development Tools Category -->
-            <div class="category-section">
-                <div class="category-header">
-                    <h3 class="category-title">Development Tools</h3>
-                    <p class="category-description">Advanced debugging and development utilities</p>
+                <div class="promo-item">
+                    <h3>✅ No Ads</h3>
+                    <p>Clean experience without any advertisements.</p>
                 </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">🔄</div>
-                        <h4 class="feature-title">Lifecycle Monitor</h4>
-                        <p class="feature-description">Monitor application lifecycle events and activity state changes.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💻</div>
-                        <h4 class="feature-title">ADB Terminal</h4>
-                        <p class="feature-description">Direct ADB command execution with history and auto-completion.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">�</div>
-                        <h4 class="feature-title">App Inspector</h4>
-                        <p class="feature-description">Inspect running applications with performance and resource usage.</p>
-                    </div>
+                <div class="promo-item">
+                    <h3>✅ Plug & Play</h3>
+                    <p>No complex setup. Install and start immediately.</p>
                 </div>
-            </div>
-
-            <!-- Communication Category -->
-            <div class="category-section">
-                <div class="category-header">
-                    <h3 class="category-title">Communication</h3>
-                    <p class="category-description">Access and manage communication data</p>
+                <div class="promo-item">
+                    <h3>✅ Lightweight</h3>
+                    <p>Minimal resource usage and fast performance.</p>
                 </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">�</div>
-                        <h4 class="feature-title">Call Logs</h4>
-                        <p class="feature-description">Access and analyze call history with detailed information.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">💬</div>
-                        <h4 class="feature-title">Messages</h4>
-                        <p class="feature-description">Manage SMS and MMS messages with conversation threads.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">👥</div>
-                        <h4 class="feature-title">Contacts</h4>
-                        <p class="feature-description">View and manage contact information with search capabilities.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- System Management Category -->
-            <div class="category-section">
-                <div class="category-header">
-                    <h3 class="category-title">System Management</h3>
-                    <p class="category-description">Monitor and control system-level operations</p>
-                </div>
-                <div class="features-grid">
-                    <div class="feature-card">
-                        <div class="feature-icon">⚡</div>
-                        <h4 class="feature-title">Services Monitor</h4>
-                        <p class="feature-description">Monitor system services with real-time status information.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔔</div>
-                        <h4 class="feature-title">Notifications</h4>
-                        <p class="feature-description">View and manage system and application notifications.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎵</div>
-                        <h4 class="feature-title">Media Management</h4>
-                        <p class="feature-description">Browse and manage media files on your device.</p>
-                    </div>
+                <div class="promo-item">
+                    <h3>✅ Privacy Focused</h3>
+                    <p>Your data stays on your device. No tracking.</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Features Tags Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Features</h2>
+            <div class="tags-container" id="tagsContainer">
+                <!-- Tags will be dynamically generated -->
+            </div>
+            <div class="feature-cards" id="featureCards">
+                <!-- Feature cards will be dynamically generated -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Documentation CTA -->
+    <section class="docs-cta">
+        <div class="container">
+            <h2 class="section-title">Want full documentation?</h2>
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="https://github.com/rajumark/tidefish/wiki" class="btn btn-primary">Read Docs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <p>&copy; 2024 Tidefish. Built by Android developers, for Android developers.</p>
+            <div class="footer-links">
+                <a href="https://github.com/rajumark/tidefish">GitHub</a>
+                <a href="https://github.com/rajumark/tidefish/blob/main/LICENSE">MIT License</a>
+                <a href="mailto:contact@tidefish.app">Contact</a>
             </div>
+            <p class="footer-text">
+                © 2026 Tidefish. Built with simplicity in mind.
+            </p>
         </div>
     </footer>
+
+    <script>
+        // Features data extracted from JSON files
+        const featuresData = [
+            {
+                tag: 'adb-integration',
+                name: 'ADB Integration',
+                description: 'Direct Android Debug Bridge integration for device communication',
+                category: 'core'
+            },
+            {
+                tag: 'device-management',
+                name: 'Device Management',
+                description: 'Complete Android device control and monitoring capabilities',
+                category: 'core'
+            },
+            {
+                tag: 'messages',
+                name: 'Messages Management',
+                description: 'SMS/MMS viewing, analysis, and conversation thread management',
+                category: 'communication'
+            },
+            {
+                tag: 'media',
+                name: 'Media Management',
+                description: 'Browse, preview, and transfer media files between device and computer',
+                category: 'media'
+            },
+            {
+                tag: 'settings',
+                name: 'Settings Control',
+                description: 'Access and modify Android device settings and developer options',
+                category: 'device'
+            },
+            {
+                tag: 'services',
+                name: 'Services Management',
+                description: 'Monitor and control Android background services and processes',
+                category: 'system'
+            },
+            {
+                tag: 'contacts',
+                name: 'Contacts Management',
+                description: 'View and manage device contacts and call logs',
+                category: 'communication'
+            },
+            {
+                tag: 'calendar',
+                name: 'Calendar Access',
+                description: 'View and analyze calendar events and schedules',
+                category: 'productivity'
+            },
+            {
+                tag: 'notifications',
+                name: 'Notifications',
+                description: 'Monitor and manage device notifications',
+                category: 'system'
+            },
+            {
+                tag: 'terminal',
+                name: 'Terminal Access',
+                description: 'Direct shell command execution and terminal interface',
+                category: 'development'
+            },
+            {
+                tag: 'ui-components',
+                name: 'Modern UI',
+                description: 'Clean, responsive interface built with modern design principles',
+                category: 'design'
+            },
+            {
+                tag: 'lifecycle',
+                name: 'Lifecycle Management',
+                description: 'App and service lifecycle monitoring and control',
+                category: 'system'
+            }
+        ];
+
+        // Generate tags
+        function generateTags() {
+            const tagsContainer = document.getElementById('tagsContainer');
+            const allTag = document.createElement('button');
+            allTag.className = 'tag active';
+            allTag.textContent = '#all';
+            allTag.onclick = () => showAllFeatures();
+            tagsContainer.appendChild(allTag);
+
+            featuresData.forEach(feature => {
+                const tag = document.createElement('button');
+                tag.className = 'tag';
+                tag.textContent = `#${feature.tag}`;
+                tag.onclick = () => showFeature(feature.tag);
+                tagsContainer.appendChild(tag);
+            });
+        }
+
+        // Generate feature cards
+        function generateFeatureCards() {
+            const featureCards = document.getElementById('featureCards');
+            
+            featuresData.forEach(feature => {
+                const card = document.createElement('div');
+                card.className = 'feature-card';
+                card.id = `feature-${feature.tag}`;
+                card.innerHTML = `
+                    <h3>#${feature.tag}</h3>
+                    <p>${feature.description}</p>
+                    <div class="feature-meta">Category: ${feature.category}</div>
+                `;
+                featureCards.appendChild(card);
+            });
+        }
+
+        // Show all features
+        function showAllFeatures() {
+            document.querySelectorAll('.tag').forEach(tag => tag.classList.remove('active'));
+            document.querySelector('.tag').classList.add('active');
+            document.querySelectorAll('.feature-card').forEach(card => card.classList.add('show'));
+        }
+
+        // Show specific feature
+        function showFeature(tag) {
+            document.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.classList.remove('show');
+            });
+            
+            const targetCard = document.getElementById(`feature-${tag}`);
+            if (targetCard) {
+                targetCard.classList.add('show');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            generateTags();
+            generateFeatureCards();
+            showAllFeatures(); // Show all features by default
+
+            // Smooth scroll for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
