@@ -181,28 +181,28 @@ jobs:
           version="${{ needs.generate-version.outputs.version }}"
           echo "Checking for version: $version"
           
-          # Define expected artifacts
-          declare -A expected_artifacts=(
-            ["linux"]="linux-$version"
-            ["macos-arm64"]="macos-arm64-$version" 
-            ["macos-x64"]="macos-x64-$version"
-            ["windows"]="windows-$version"
+          # Define expected files based on what Gradle actually creates
+          declare -A expected_files=(
+            ["linux"]="Tidefish-$version.deb"
+            ["macos-arm64"]="Tidefish-$version.dmg"
+            ["macos-x64"]="Tidefish-$version.dmg" 
+            ["windows"]="Tidefish-$version.zip"
           )
           
           missing_artifacts=()
           found_artifacts=()
           
-          # Check each expected artifact
-          for platform in "${!expected_artifacts[@]}"; do
-            pattern="${expected_artifacts[$platform]}"
-            echo "Checking for $platform artifact: $pattern"
+          # Check each expected file
+          for platform in "${!expected_files[@]}"; do
+            expected_file="${expected_files[$platform]}"
+            echo "Checking for $platform file: $expected_file"
             
-            if find . -name "${pattern}*" -type f | grep -q .; then
-              found_files=$(find . -name "${pattern}*" -type f)
-              echo "✅ FOUND $platform: $found_files"
+            if find . -name "$expected_file" -type f | grep -q .; then
+              found_file=$(find . -name "$expected_file" -type f)
+              echo "✅ FOUND $platform: $found_file"
               found_artifacts+=("$platform")
             else
-              echo "❌ MISSING $platform artifact: $pattern"
+              echo "❌ MISSING $platform file: $expected_file"
               missing_artifacts+=("$platform")
             fi
           done
@@ -220,8 +220,8 @@ jobs:
               echo "  - $platform"
             done
             echo ""
-            echo "Debugging - all files with version in name:"
-            find . -name "*$version*" -type f -exec ls -la {} \;
+            echo "Debugging - all files in workspace:"
+            find . -type f -exec ls -la {} \;
             exit 1
           else
             echo "🎉 All 4 platform artifacts found!"
