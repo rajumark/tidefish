@@ -31,6 +31,8 @@ import screens.messages.JMessagesController
 import screens.messages.JMessagesModel
 import screens.messages.JMessagesView
 import screens.nodevice.NoDeviceView
+import screens.notifications.JNotificationsController
+import screens.notifications.JNotificationsModel
 import screens.notifications.JNotificationsView
 import screens.packages.PackagesListController
 import screens.packages.PackagesListModel
@@ -102,7 +104,9 @@ class RightSideContentMain: JPanel() {
     private val adbTerminalView by lazy { ADBTerminalView() }
     private val adbTerminalController by lazy { ADBTerminalController(adbTerminalModel, adbTerminalView) }
 
+    private val notificationsModel by lazy { JNotificationsModel() }
     private val notificationsView by lazy { JNotificationsView() }
+    private val notificationsController by lazy { JNotificationsController(notificationsModel, notificationsView) }
 
 
     private val cardLayout = CardLayout()
@@ -161,6 +165,7 @@ class RightSideContentMain: JPanel() {
         jCalendarController.setDeviceModel(deviceModel)
         devicePropertiesController.setDeviceModel(deviceModel)
         adbTerminalController.setDeviceModel(deviceModel)
+        notificationsController.setDeviceModel(deviceModel)
     }
 
 }
