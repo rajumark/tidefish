@@ -22,7 +22,7 @@ jobs:
             artifact_path: build/compose/binaries/main/dmg
             artifact_extension: dmg
             package_name: Tidefish
-          - os: macos-14
+          - os: macos-13
             name: macos-x64
             artifact_path: build/compose/binaries/main/dmg
             artifact_extension: dmg
@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up Git user
         run: |
@@ -45,7 +45,7 @@ jobs:
           git config --global user.email "raju348636@gmail.com"
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
           java-version: '17'
@@ -136,13 +136,12 @@ jobs:
         shell: bash
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.name }}-${{ steps.version.outputs.version }}
           path: ${{ steps.artifact.outputs.artifact_path }}
 
       - name: Create Release
-        id: release
         uses: softprops/action-gh-release@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -152,4 +151,3 @@ jobs:
           draft: false
           prerelease: false
           files: ${{ steps.artifact.outputs.artifact_path }}
-
