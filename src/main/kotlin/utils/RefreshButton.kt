@@ -15,7 +15,7 @@ class RefreshButtonPanel : JPanel() {
         iconButton = getIconButton("refresh", 18, 18)  // Create the button with the refresh icon
         iconButton.toolTipText = "Refresh"
         iconButton.addActionListener {
-           // println("ADBCard button clicked!")
+           // println("Tidefish button clicked!")
             setLoading(true)
             // Simulate a long-running task with SwingWorker
             BackgroundTask().execute()

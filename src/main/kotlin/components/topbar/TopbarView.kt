@@ -13,7 +13,7 @@ import javax.swing.border.MatteBorder
 class TopbarView : JPanel() {
     var onMenuClick: (() -> Unit)? = null
     var onQuickTilesClick: (() -> Unit)? = null
-    private val titleLabel = JLabel("ADBCard")
+    private val titleLabel = JLabel("Tidefish")
     val deviceSelectorView = JDeviceSelectorView()
     val settingsDialog by lazy {
         SoftwareSettingsDialog()

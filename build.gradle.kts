@@ -7,7 +7,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-group = "com.adb.card"
+group = "com.tidefish.app"
 version = "1.0-SNAPSHOT"
 
 repositories {
@@ -56,7 +56,7 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "ADBCard"
+            packageName = "Tidefish"
             packageVersion = "1.0.21" //versionLogs #go commit
             //Gumroad: https://gumroad.com/products
             //Logs https://docs.google.com/spreadsheets/d/1lHfe-dSo6jFYZkQkVT5yILXG-sRkuFs9k2J78F8Ov7M/edit?resourcekey=&gid=954940293#gid=954940293
@@ -67,8 +67,8 @@ compose.desktop {
             }
             windows {
                 iconFile.set(iconsRoot.resolve("icon-windows.ico"))
-                menuGroup = "ADBCard"
-                installationPath = "C:\\Program Files\\ADBCard"
+                menuGroup = "Tidefish"
+                installationPath = "C:\\Program Files\\Tidefish"
 
                 upgradeUuid = "8f3d4c92-1b3a-7c8e-2a14-90f75b83d1ce"
             }

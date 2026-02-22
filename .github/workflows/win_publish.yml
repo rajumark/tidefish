@@ -73,27 +73,27 @@ jobs:
       #      - name: Sign MSI File pre
 #        run: |
 #          $signtoolPath = "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe"
-#          $msiPath = "$env:GITHUB_WORKSPACE/build/compose/binaries/main/msi/ADBCard-1.0.3.msi"
+#          $msiPath = "$env:GITHUB_WORKSPACE/build/compose/binaries/main/msi/Tidefish-1.0.3.msi"
 #          & $signtoolPath sign /f "codesign.pfx" /p "yourpassword" /tr "http://timestamp.digicert.com" /td SHA256 $msiPath
 #        shell: pwsh
 
 #      - name: Verify MSI File
 #        run: |
 #          $signtoolPath = "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe"
-#          $msiPath = "$env:GITHUB_WORKSPACE/build/compose/binaries/main/msi/ADBCard-1.0.3.msi"
+#          $msiPath = "$env:GITHUB_WORKSPACE/build/compose/binaries/main/msi/Tidefish-1.0.3.msi"
 #          & $signtoolPath verify /pa $msiPath
 #        shell: pwsh
 
 #      - name: Sign MSI
 #        run: |
 #          $current_dir = Get-Location
-#          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /f codesign.pfx /p yourpassword /tr http://timestamp.digicert.com /td SHA256 "$current_dir/build/compose/binaries/main/msi/ADBCard-1.0.3.msi"
+#          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /f codesign.pfx /p yourpassword /tr http://timestamp.digicert.com /td SHA256 "$current_dir/build/compose/binaries/main/msi/Tidefish-1.0.3.msi"
 
-#          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /f codesign.pfx /p yourpassword /t http://timestamp.digicert.com build/compose/binaries/main/msi/ADBCard-1.0.3.msi
+#          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" sign /f codesign.pfx /p yourpassword /t http://timestamp.digicert.com build/compose/binaries/main/msi/Tidefish-1.0.3.msi
 ##
 #      - name: Verify signature
 #        run: |
-#          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" verify /pa build/compose/binaries/main/msi/ADBCard-1.0.3.msi
+#          "C:\Program Files (x86)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe" verify /pa build/compose/binaries/main/msi/Tidefish-1.0.3.msi
 
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -118,7 +118,7 @@ jobs:
 
       - name: Publish to Private Repo
         env:
-          PRIVATE_REPO_URL: https://github.com/rajumark/ADBCard-Releases.git
+          PRIVATE_REPO_URL: https://github.com/rajumark/Tidefish-Releases.git
           PRIVATE_REPO_TOKEN: ${{ secrets.PRIVATE_REPO_PAT }}
         run: |
           $current_dir = Get-Location
@@ -128,28 +128,28 @@ jobs:
           if ($version_line -ne $null) {
             $version = $version_line.Matches.Groups[1].Value
             Write-Output "Current version: $version"
-            $msi_file_path = "$current_dir/build/compose/binaries/main/msi/ADBCard-$version.msi"
+            $msi_file_path = "$current_dir/build/compose/binaries/main/msi/Tidefish-$version.msi"
             if (Test-Path $msi_file_path) {
               Write-Output "MSI file path: $msi_file_path"
-              git clone https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
-              $directory_path = "ADBCard-Releases\windows"
+              git clone https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/Tidefish-Releases.git
+              $directory_path = "Tidefish-Releases\windows"
               if (Test-Path -Path $directory_path) {
                 Remove-Item -Path $directory_path -Recurse -Force
-                New-Item -Path "ADBCard-Releases" -Name "windows" -ItemType "directory" -Force
+                New-Item -Path "Tidefish-Releases" -Name "windows" -ItemType "directory" -Force
                 Write-Output "Directory deleted: $directory_path"
               } else {
                 Write-Output "Directory not found: $directory_path"
               }
               $signtoolPath = (Get-Command signtool.exe).Source
               $signtoolPath sign /f "codesign.pfx" /p "yourpassword" /tr "http://timestamp.digicert.com" /td SHA256 $msi_file_path
-              $msi_file_path_zip = "$current_dir/build/compose/binaries/main/msi/ADBCard-$version.zip"
-              $zip_password = "ADBCard"
+              $msi_file_path_zip = "$current_dir/build/compose/binaries/main/msi/Tidefish-$version.zip"
+              $zip_password = "Tidefish"
               Compress-Archive -Path $msi_file_path -DestinationPath $msi_file_path_zip
-              Copy-Item -Path $msi_file_path_zip -Destination ADBCard-Releases\windows\
-              cd ADBCard-Releases
+              Copy-Item -Path $msi_file_path_zip -Destination Tidefish-Releases\windows\
+              cd Tidefish-Releases
               git add .
               git commit -m "Update MSI: $version"
-              git push https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
+              git push https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/Tidefish-Releases.git
             } else {
               Write-Output "MSI file not found: $msi_file_path"
             }

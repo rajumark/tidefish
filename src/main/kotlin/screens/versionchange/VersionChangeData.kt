@@ -90,7 +90,7 @@ val versionLogs = versionLogs(
         "📞 New: View device call and message logs with filters."
     ),
     "1.0.0" to changes(
-        "🎉 ADBCard's initial launch!",
+        "🎉 Tidefish's initial launch!",
         "Core features: Device list, installed apps view, and basic settings.",
         "Made to simplify ADB use – no terminal needed."
     )

@@ -13,4 +13,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "ADBCard"
+rootProject.name = "Tidefish"

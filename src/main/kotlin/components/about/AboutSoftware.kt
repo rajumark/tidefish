@@ -12,7 +12,7 @@ import javax.swing.*
 
 fun showAboutDialog(parent: JFrame) {
     val (appName, version) = parent.getAppInfo()
-    val creator = "ADBCard Contributors"
+    val creator = "Tidefish Contributors"
     val website = "https://github.com/ADBCard/ADBCard"
     val javaVersion = System.getProperty("java.version")
     val swingVersion = UIManager.getLookAndFeel().name
@@ -31,7 +31,7 @@ fun showAboutDialog(parent: JFrame) {
     topPanel.border = BorderFactory.createEmptyBorder(0, 0, 15, 0)
 
     // Load logo image
-    val imageUrl = parent.javaClass.getResource("/ic_adbcard_logo.png")
+    val imageUrl = parent.javaClass.getResource("/ic_tidefish_logo.png")
     val originalIcon = if (imageUrl != null) ImageIcon(imageUrl) else null
     val scaledIcon = originalIcon?.image?.getScaledInstance(32, 32, Image.SCALE_SMOOTH)?.let {
         ImageIcon(it)
@@ -89,7 +89,7 @@ fun JFrame.getAppInfo(): Pair<String, String> {
     val currentVersion = ADBHelper.getCurrentVersion()
 
 
-    val appName = properties.getProperty("app.name", "ADBCard")
+    val appName = properties.getProperty("app.name", "Tidefish")
     val version = properties.getProperty("app.version", currentVersion)
 
     return Pair(appName, version)

@@ -24,7 +24,7 @@ class UpdateDialog(
         topPanel.border = BorderFactory.createEmptyBorder(20, 20, 10, 20)
         topPanel.isOpaque = false
 
-        val imageUrl = javaClass.getResource("/ic_adbcard_logo.png")
+        val imageUrl = javaClass.getResource("/ic_tidefish_logo.png")
         val originalIcon = if (imageUrl != null) ImageIcon(imageUrl) else null
         val scaledIcon = originalIcon?.image?.getScaledInstance(40, 40, Image.SCALE_SMOOTH)?.let {
             ImageIcon(it)
@@ -38,7 +38,7 @@ class UpdateDialog(
         textPanel.layout = BoxLayout(textPanel, BoxLayout.Y_AXIS)
         textPanel.isOpaque = false
 
-        val softwareName = JLabel("ADBCard Update").apply {
+        val softwareName = JLabel("Tidefish Update").apply {
             font = UIManager.getFont("Label.font")?.deriveFont(Font.BOLD, 18f)
             alignmentX = Component.LEFT_ALIGNMENT
         }

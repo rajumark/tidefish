@@ -1,6 +1,9 @@
 package adb
 
 import adb.ADBHelper.getCurrentVersion
+import adb.ADBOS
+import autoupdate.ADBDownload
+import autoupdate.ADBSource
 import androidx.compose.ui.res.useResource
 import java.io.BufferedInputStream
 import java.io.File
@@ -8,6 +11,7 @@ import java.io.FileOutputStream
 import java.io.InputStream
 import java.util.zip.ZipEntry
 import java.util.zip.ZipInputStream
+import javax.swing.SwingUtilities
 
 object ZipHelper {
 
@@ -30,14 +34,11 @@ object ZipHelper {
     }
 
     fun getAdbPathZipForEXe(): String {
-        return getUserFolderForCurrentOS().absolutePath + "/platform-tools/./adb"
+        return getUserFolderForCurrentOS().absolutePath + "/platform-tools/adb"
     }
 
     fun getAdbPathZipEXisti(): Boolean {
-        return File(getUserFolderForCurrentOS(), "platform-tools").apply {
-            print(absolutePath)
-            print(exists())
-        }.exists()
+        return File(getUserFolderForCurrentOS(), "platform-tools").exists()
     }
 
     fun createUserLibraryFolder(folderName: String) {
@@ -69,7 +70,7 @@ object ZipHelper {
         }
         //val userLibraryDir = System.getProperty("user.home") + "/Library"
         //val userLibraryDir = System.getProperty("user.home") + "/Documents"
-        val appFolder = File(userLibraryDir, "ADBCard")
+        val appFolder = File(userLibraryDir, "Tidefish")
         if (!appFolder.exists()) {
             appFolder.mkdirs() // Create directories if needed
         }
@@ -79,15 +80,20 @@ object ZipHelper {
 
     fun makeReadyADB(onReady: () -> Unit) {
         val os = ADBOS.getOperatingSystem()
+        val destinationFolder = getUserFolderForCurrentOS()
         val zipFileLocation = when (os) {
             OperatingSystem.WINDOWS -> "platform-tools-windows.zip"
-            OperatingSystem.MAC -> "platform-tools.zip"
-            OperatingSystem.LINUX -> "platform-tools.zip"
-            OperatingSystem.UNKNOWN -> "platform-tools.zip"
+            OperatingSystem.MAC -> "platform-tools-macos.zip"
+            OperatingSystem.LINUX -> "platform-tools-linux.zip"
+            OperatingSystem.UNKNOWN -> "platform-tools-windows.zip"
         }
-        // val resFile = getResourcePathString()
+        
+        val destinationFile = File(destinationFolder, zipFileLocation)
+        
         if (getAdbPathZipEXisti().not()) {
-            useResource(zipFileLocation) { stream: InputStream ->
+            // Trigger download dialog
+            SwingUtilities.invokeLater {
+                ADBDownload.showDownloadDialog(null, destinationFile)
                 onReady()
             }
         } else {

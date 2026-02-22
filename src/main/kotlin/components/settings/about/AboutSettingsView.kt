@@ -22,7 +22,7 @@ class AboutSettingsView : JPanel() {
         }
         
         // App name and version
-        val appNameLabel = JLabel("ADBCard").apply {
+        val appNameLabel = JLabel("Tidefish").apply {
             font = font.deriveFont(Font.BOLD, 24f)
             alignmentX = Component.CENTER_ALIGNMENT
         }
@@ -35,14 +35,14 @@ class AboutSettingsView : JPanel() {
         
         // Description
         val descriptionLabel = JLabel("<html><div style='text-align: center; width: 300px;'>" +
-            "ADBCard is a powerful Android Debug Bridge (ADB) management tool that provides " +
+            "Tidefish is a powerful Android Debug Bridge (ADB) management tool that provides " +
             "comprehensive device management capabilities for developers and Android enthusiasts.</div></html>").apply {
             alignmentX = Component.CENTER_ALIGNMENT
             border = BorderFactory.createEmptyBorder(20, 0, 20, 0)
         }
         
         // Copyright
-        val copyrightLabel = JLabel("© 2024 ADBCard. All rights reserved.").apply {
+        val copyrightLabel = JLabel("© 2024 Tidefish. All rights reserved.").apply {
             font = font.deriveFont(Font.PLAIN, 12f)
             foreground = Color.GRAY
             alignmentX = Component.CENTER_ALIGNMENT

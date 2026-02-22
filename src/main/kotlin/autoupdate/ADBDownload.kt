@@ -14,7 +14,7 @@ import kotlin.concurrent.thread
 
 
 object ADBDownload {
-    fun showDownloadDialog(parent: JFrame, destinationFile: File) {
+    fun showDownloadDialog(parent: JFrame?, destinationFile: File) {
         val dialog = JDialog(parent, "Download ADB", true)
         dialog.setSize(450, 230)  // Slightly increased size for better spacing
         dialog.layout = GridBagLayout()
@@ -92,7 +92,7 @@ object ADBDownload {
                     }
                 }
             }
-
+            
             unzipFile(destinationFile, destinationFile.parentFile)
             
             // Grant execute permission for ADB on macOS
@@ -104,11 +104,12 @@ object ADBDownload {
                         val process = processBuilder.start()
                         val exitCode = process.waitFor()
                         if (exitCode != 0) {
-                            //println("Warning: Failed to set execute permission on ADB file")
+                            println("Tidefish: Warning - Failed to set execute permission on ADB file, exit code: $exitCode")
                         }
                     }
                 } catch (e: Exception) {
-                    //println("Warning: Error setting execute permission: ${e.message}")
+                    println("Tidefish: Error setting execute permission: ${e.message}")
+                    e.printStackTrace()
                 }
             }
             
@@ -116,7 +117,6 @@ object ADBDownload {
                 dialog.dispose()
             }
         } catch (e: Exception) {
-            e.printStackTrace()
             SwingUtilities.invokeLater {
                 JOptionPane.showMessageDialog(null, "Download Failed: ${e.message}", "Error", JOptionPane.ERROR_MESSAGE)
                 dialog.dispose()

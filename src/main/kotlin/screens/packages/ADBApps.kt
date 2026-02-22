@@ -412,18 +412,18 @@ object ADBApps {
                 //val newFile = renameFile(apkFile, packageName + ".apk")
                 openFileInExplorer(File(outputDir))
             } catch (e: Exception) {
-              // println("ADBCard:D2==" + e.message)
+              // println("Tidefish:D2==" + e.message)
             }
 
             true
             /* if (apkFile.exists()) {
-                 println("ADBCard:D2==" + apkFileName)
+                 println("Tidefish:D2==" + apkFileName)
                  val newFile = renameFile(apkFile, packageName + ".apk")
                  openFileInExplorer(newFile)
-                 println("ADBCard:D3==" + apkFileName)
+                 println("Tidefish:D3==" + apkFileName)
                  true
              } else {
-                 println("ADBCard:D4==" + apkFileName)
+                 println("Tidefish:D4==" + apkFileName)
                  false
              }*/
 
@@ -439,9 +439,9 @@ object ADBApps {
 
                 launch(Dispatchers.IO) {
                     val pullApkCommand = "${ADBConst.path} -s $id pull $apkPath $outputDir"
-                  //  println("ADBCard:pullApkCommand= $pullApkCommand")
+                  //  println("Tidefish:pullApkCommand= $pullApkCommand")
                     val pullResult = ADBHelper.executeCommand(pullApkCommand)
-                  //  println("ADBCard: path=$pullResult")
+                  //  println("Tidefish: path=$pullResult")
                 }
             }
         }
@@ -487,7 +487,7 @@ object ADBApps {
               //  println("Failed to rename file!")
             }
         } catch (e: Exception) {
-            //println("ADBCard:renameFile==" + e.message)
+            //println("Tidefish:renameFile==" + e.message)
 
         }
 

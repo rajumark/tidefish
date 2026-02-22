@@ -21,7 +21,7 @@ class JFeedbackPane : JPanel() {
         topPanel.isOpaque = false
         topPanel.alignmentX = Component.CENTER_ALIGNMENT
 
-        val imageUrl = javaClass.getResource("/ic_adbcard_logo.png")
+        val imageUrl = javaClass.getResource("/ic_tidefish_logo.png")
         val originalIcon = if (imageUrl != null) ImageIcon(imageUrl) else null
         val scaledIcon = originalIcon?.image?.getScaledInstance(56, 56, Image.SCALE_SMOOTH)?.let {
             ImageIcon(it)
@@ -36,7 +36,7 @@ class JFeedbackPane : JPanel() {
         textPanel.isOpaque = false
         textPanel.alignmentY = Component.CENTER_ALIGNMENT
 
-        val softwareName = JLabel("ADBCard")
+        val softwareName = JLabel("Tidefish")
         softwareName.font = UIManager.getFont("Label.font")?.deriveFont(Font.BOLD, 22f)
 
         val versionLabel = JLabel("v${getCurrentVersion()}")
@@ -55,7 +55,7 @@ class JFeedbackPane : JPanel() {
             alignmentX = Component.CENTER_ALIGNMENT
         }
 
-        val sublineLabel = JLabel("Tell us about your experience using ADBCard", SwingConstants.CENTER).apply {
+        val sublineLabel = JLabel("Tell us about your experience using Tidefish", SwingConstants.CENTER).apply {
             font = UIManager.getFont("Label.font")?.deriveFont(18f)
             alignmentX = Component.CENTER_ALIGNMENT
         }

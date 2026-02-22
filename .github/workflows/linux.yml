@@ -54,9 +54,9 @@ jobs:
           if [ -f "$deb_file_path" ]; then
             echo "DEB file path: $deb_file_path"
 
-            git clone https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
+            git clone https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/Tidefish-Releases.git
 
-            target_dir="ADBCard-Releases/linux"
+            target_dir="Tidefish-Releases/linux"
             if [ -d "$target_dir" ]; then
               echo "Cleaning existing files in $target_dir"
               rm -rf "$target_dir"/*
@@ -65,14 +65,14 @@ jobs:
             mkdir -p "$target_dir"
             cp "$deb_file_path" "$target_dir/"
 
-            cd ADBCard-Releases
+            cd Tidefish-Releases
             git add .
             git commit -m "Update Linux: $version" || echo "No changes to commit"
 
             # ✅ Ensure we are up-to-date before pushing
             git pull --rebase origin main
 
-            git push https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
+            git push https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/Tidefish-Releases.git
           else
             echo "No .deb package found in build output."
           fi

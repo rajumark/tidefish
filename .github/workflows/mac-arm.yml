@@ -39,14 +39,14 @@ jobs:
           version=$(grep -oE 'packageVersion = "[0-9]+\.[0-9]+\.[0-9]+"' $file_path | grep -oE '[0-9]+\.[0-9]+\.[0-9]+')
 
           echo "Current version: $version"
-          dmg_file_path="$current_dir/build/compose/binaries/main/dmg/ADBCard-$version.dmg"
+          dmg_file_path="$current_dir/build/compose/binaries/main/dmg/Tidefish-$version.dmg"
 
           if [ -f "$dmg_file_path" ]; then
             echo "DMG file path: $dmg_file_path"
 
-            git clone https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
+            git clone https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/Tidefish-Releases.git
 
-            target_dir="ADBCard-Releases/macos/arm64"
+            target_dir="Tidefish-Releases/macos/arm64"
             if [ -d "$target_dir" ]; then
               echo "Cleaning existing files in $target_dir"
               rm -rf "$target_dir"/*
@@ -55,10 +55,10 @@ jobs:
             mkdir -p "$target_dir"
             cp "$dmg_file_path" "$target_dir/"
 
-            cd ADBCard-Releases
+            cd Tidefish-Releases
             git add .
             git commit -m "Update macOS ARM: $version"
-            git push https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/ADBCard-Releases.git
+            git push https://${{ secrets.PRIVATE_REPO_PAT }}@github.com/rajumark/Tidefish-Releases.git
           else
             echo "DMG not found: $dmg_file_path"
           fi

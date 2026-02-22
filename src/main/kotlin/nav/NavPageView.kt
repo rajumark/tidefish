@@ -19,7 +19,7 @@ import javax.swing.*
 import javax.swing.border.MatteBorder
 
 
-class NavPageView : JFrame("ADBCard ${getCurrentVersion()}") {
+class NavPageView : JFrame("Tidefish ${getCurrentVersion()}") {
     var hiddenLeftMenu = false
     var hiddenRightQuickPanel = KeyValueStore.get("hiddenRightQuickPanel")?.toBoolean() ?: true
     var lastDividerLocation = 100

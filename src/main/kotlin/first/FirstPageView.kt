@@ -50,7 +50,7 @@ import javax.swing.JFrame
 import javax.swing.JMenuBar
 import javax.swing.JPanel
 
-class FirstPageView : JFrame("ADBCard ${getCurrentVersion()}") {
+class FirstPageView : JFrame("Tidefish ${getCurrentVersion()}") {
 
     private val packagesListModel by lazy { PackagesListModel() }
     //private val packagesListView by lazy { PackagesListView() }
