@@ -94,9 +94,27 @@ jobs:
       - name: Create ZIP for Windows
         if: runner.os == 'Windows'
         run: |
-          $msi_file_path = "${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
-          $zip_file_path = "${{ github.workspace }}/${{ matrix.artifact_path }}/${{ matrix.package_name }}-${{ steps.version.outputs.version }}.zip"
-          Compress-Archive -Path $msi_file_path -DestinationPath $zip_file_path
+          $artifact_dir = "${{ github.workspace }}\${{ matrix.artifact_path }}"
+          $msi_file_path = "$artifact_dir\${{ matrix.package_name }}-${{ steps.version.outputs.version }}.${{ matrix.artifact_extension }}"
+          $zip_file_path = "$artifact_dir\${{ matrix.package_name }}-${{ steps.version.outputs.version }}.zip"
+          
+          Write-Host "Looking for MSI file at: $msi_file_path"
+          if (Test-Path $msi_file_path) {
+            Write-Host "MSI file found, creating ZIP..."
+            Compress-Archive -Path $msi_file_path -DestinationPath $zip_file_path
+          } else {
+            Write-Host "MSI file not found, searching for any .msi file..."
+            $msi_files = Get-ChildItem -Path $artifact_dir -Filter "*.msi"
+            if ($msi_files.Count -gt 0) {
+              $msi_file_path = $msi_files[0].FullName
+              Write-Host "Found MSI file: $msi_file_path"
+              Compress-Archive -Path $msi_file_path -DestinationPath $zip_file_path
+            } else {
+              Write-Host "No MSI files found in $artifact_dir"
+              Get-ChildItem -Path $artifact_dir -Recurse
+              exit 1
+            }
+          }
         shell: pwsh
 
       - name: Find artifact
