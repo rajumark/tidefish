@@ -228,17 +228,18 @@ jobs:
           fi
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ needs.generate-version.outputs.version }}
-          name: Tidefish v${{ needs.generate-version.outputs.version }}
-          draft: false
-          prerelease: false
-          files: |
-            *-*
-            **/*
+  uses: softprops/action-gh-release@v2
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  with:
+    tag_name: v${{ needs.generate-version.outputs.version }}
+    name: Tidefish v${{ needs.generate-version.outputs.version }}
+    draft: false
+    prerelease: false
+    files: |
+      *.dmg
+      *.deb
+      *.zip
 
       - name: Verify Release
         run: |
